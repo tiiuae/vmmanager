@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>TileItemDelegate.qml</file>
+        <file>DetailsView.qml</file>
+        <file>ProgressCircle.qml</file>
+        <file>InfoTileItem.qml</file>
+        <file>qmldir</file>
+        <file>Constants.qml</file>
+    </qresource>
+</RCC>
