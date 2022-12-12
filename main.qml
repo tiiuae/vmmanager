@@ -18,7 +18,7 @@ ApplicationWindow {
             height: parent.height
             spacing: Constants.spacing
             ToolButton {
-                text: "Update"
+                action: updateAction
             }
             ToolButton {
                 text: "View"
@@ -36,6 +36,14 @@ ApplicationWindow {
             text: qsTr("⋮")
             //onClicked: menu.open()
         }
+    }
+
+    Action {
+        id: updateAction
+        text: "Update"
+        shortcut: "Ctrl+R"
+        onTriggered: rootContext.updateModel()
+        //tooltip: "Update VM info"
     }
 
     background: Rectangle {

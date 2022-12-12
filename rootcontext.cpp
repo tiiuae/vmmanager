@@ -9,8 +9,16 @@
 
 RootContext::RootContext()
 {   
+    updateModel();
+}
+
+void RootContext::updateModel()
+{
+    if(mVMDataModel.rowCount(QModelIndex()) > 0)
+        mVMDataModel.clear();
+
     //exec lsvm command
-//    execCommand("lsvm");
+    execCommand("ls");//ls for test
     //parse the execution result and add to the model
 
     mVMDataModel.addData(Parameter("VM1", "runnig"));
@@ -19,14 +27,6 @@ RootContext::RootContext()
 }
 
 QString RootContext::execCommand(const char *cmd)
-{
-    QString result;
-    result = QString::fromStdString(exec(cmd));
-    qDebug() << result;
-    return result;
-}
-
-std::string RootContext::exec(const char* cmd)
 {
     std::array<char, 128> buffer;
     std::string result;
@@ -37,5 +37,8 @@ std::string RootContext::exec(const char* cmd)
     while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
         result += buffer.data();
     }
-    return result;
+
+    qDebug() << QString::fromStdString(result);
+
+    return QString::fromStdString(result);
 }

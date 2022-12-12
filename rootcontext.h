@@ -11,11 +11,12 @@ public:
     RootContext();
 
     VMDataModel * getVMDataModel() {return &mVMDataModel;}
-    QString execCommand(const char * cmd);
+
+    Q_INVOKABLE void updateModel();
 
 private:
     VMDataModel mVMDataModel;
-    std::string exec(const char* cmd);
+    QString execCommand(const char * cmd);
 };
 
 #endif // ROOTCONTEXT_H
