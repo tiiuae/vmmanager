@@ -28,7 +28,9 @@ QHash<int, QByteArray> VMDataModel::VMDataModel::roleNames() const {
     QHash<int, QByteArray> roles;
     roles[NameRole] = "name";
     roles[StatusRole] = "status";
-    //...
+    roles[CPURole] = "cpu_usage";
+    roles[MemoryRole] = "memory_usage";
+    roles[NetworkRole] = "network_usage";
     return roles;
 }
 

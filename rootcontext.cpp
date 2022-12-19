@@ -7,6 +7,11 @@
 #include <array>
 #include <QDebug>
 
+/*
+    Now there is only one way to retrieve appVM's info: using "lsvm" command,
+    which provides us with names and statuses of appVM's.
+*/
+
 RootContext::RootContext()
 {   
     updateModel();
@@ -18,9 +23,17 @@ void RootContext::updateModel()
         mVMDataModel.clear();
 
     //exec lsvm command
-    execCommand("ls");//ls for test
-    //parse the execution result and add to the model
+    /*QString vmInfo =*/ execCommand("ls");//ls for test
 
+    //parse the execution result and add to the model
+//    QTextStream stream (&vmInfo, QIODevice::ReadOnly);
+//    while(!stream.atEnd()) {
+//        QString temp;
+//        stream >> temp;
+//        qDebug() << temp;
+//    }
+
+    //
     mVMDataModel.addData(Parameter("VM1", "runnig"));
     mVMDataModel.addData(Parameter("VM2", "off"));
     mVMDataModel.addData(Parameter("VM3", "off"));
@@ -38,7 +51,7 @@ QString RootContext::execCommand(const char *cmd)
         result += buffer.data();
     }
 
-    qDebug() << QString::fromStdString(result);
+    //qDebug() << QString::fromStdString(result);
 
     return QString::fromStdString(result);
 }

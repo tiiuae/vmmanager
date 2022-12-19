@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-Rectangle {
+Button {
     id: root
 
     property string vmName: ""
@@ -9,7 +9,12 @@ Rectangle {
 
     width: 200
     height: 120
-    color: Constants.baseColor0
+    background: Rectangle {
+        id: backgroundRect
+
+        anchors.fill: parent
+        color: Constants.baseColor0
+    }
 
     Rectangle {
         id: indicator
@@ -20,7 +25,7 @@ Rectangle {
         width: 15
         height: width
         radius: height/2
-        color: vmStatus == "runnig" ? "#35CE8D" : "#AE4634"
+        color: vmStatus == "runnig" ? Constants.indicatorOn : Constants.indicatorOff
     }
 
     Label {
@@ -43,4 +48,42 @@ Rectangle {
         font.pixelSize: 12
         color: Constants.textColor1
     }
+
+    states: [
+        State {
+            name: "normal"
+            when: !root.pressed && root.enabled
+            PropertyChanges {
+                target: backgroundRect
+                color: Constants.baseColor0
+            }
+            PropertyChanges {
+                target: statusLabel
+                color: Constants.textColor1
+            }
+            PropertyChanges {
+                target: nameLabel
+                color: Constants.textColor1
+            }
+        },
+        State {
+            name: "pressed"
+            when: root.pressed && root.enabled
+            PropertyChanges {
+                target: backgroundRect
+                color: Constants.baseColor1
+            }
+            PropertyChanges {
+                target: statusLabel
+                color: Constants.textColor0
+            }
+            PropertyChanges {
+                target: nameLabel
+                color: Constants.textColor0
+            }
+        }
+        //+ disabled when not running?
+
+    ]
 }
+

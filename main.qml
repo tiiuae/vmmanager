@@ -67,17 +67,13 @@ ApplicationWindow {
             vmName: name
             vmStatus: status
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    console.debug("clicked")
-                    var component = Qt.createComponent("DetailsView.qml")
-                    if (component.status === Component.Ready) {
-                        var detailsView = component.createObject(root)
-                        detailsView.nameField = name
-                        detailsView.statusField = status
-                        detailsView.show()
-                    }
+            onClicked: {
+                var component = Qt.createComponent("DetailsView.qml")
+                if (component.status === Component.Ready) {
+                    var detailsView = component.createObject(root)
+                    detailsView.nameField = name
+                    detailsView.statusField = status
+                    detailsView.show()
                 }
             }
         }

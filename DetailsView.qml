@@ -63,4 +63,16 @@ Window {
             value: 0.4
         }
     }
+
+    Rectangle {
+        id: indicator
+
+        anchors.top: parent.top
+        anchors.right: parent.right
+        anchors.margins: 5
+        width: 15
+        height: width
+        radius: height/2
+        color: statusField == "runnig" ?  Constants.indicatorOn : Constants.indicatorOff
+    }
 }

@@ -30,7 +30,10 @@ class VMDataModel : public QAbstractListModel
 public:
     enum DataRoles {
         NameRole = Qt::UserRole + 1,
-        StatusRole
+        StatusRole,
+        CPURole,
+        MemoryRole,
+        NetworkRole
     };
 
     VMDataModel(QObject *parent = nullptr);
