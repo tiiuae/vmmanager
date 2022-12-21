@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtGraphicalEffects 1.15
 
 Button {
     id: root
@@ -14,6 +15,18 @@ Button {
 
         anchors.fill: parent
         color: Constants.baseColor0
+
+        LinearGradient {
+            id: backgroundGradient
+
+            anchors.fill: backgroundRect
+            start: Qt.point(0, 0)//backgroundRect.width/5, backgroundRect.height/5)
+            end: Qt.point(backgroundRect.width, backgroundRect.height)
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: Constants.baseColor0 }
+                GradientStop { position: 1.0; color: Constants.baseColor1 }
+            }
+        }
     }
 
     Rectangle {
@@ -53,9 +66,10 @@ Button {
         State {
             name: "normal"
             when: !root.pressed && root.enabled
+
             PropertyChanges {
-                target: backgroundRect
-                color: Constants.baseColor0
+                target: backgroundGradient
+                visible: false
             }
             PropertyChanges {
                 target: statusLabel
@@ -69,9 +83,10 @@ Button {
         State {
             name: "pressed"
             when: root.pressed && root.enabled
+
             PropertyChanges {
-                target: backgroundRect
-                color: Constants.baseColor1
+                target: backgroundGradient
+                visible: true
             }
             PropertyChanges {
                 target: statusLabel

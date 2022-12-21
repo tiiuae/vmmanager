@@ -10,6 +10,8 @@
 /*
     Now there is only one way to retrieve appVM's info: using "lsvm" command,
     which provides us with names and statuses of appVM's.
+
+    For testing purposes the test.txt file is used. This file must be in the same directiry as executable file.
 */
 
 RootContext::RootContext()
@@ -23,20 +25,16 @@ void RootContext::updateModel()
         mVMDataModel.clear();
 
     //exec lsvm command
-    /*QString vmInfo =*/ execCommand("ls");//ls for test
+    QString vmInfo = execCommand("cat test.txt");
+    vmInfo = vmInfo.trimmed();//simplified()?
 
     //parse the execution result and add to the model
-//    QTextStream stream (&vmInfo, QIODevice::ReadOnly);
-//    while(!stream.atEnd()) {
-//        QString temp;
-//        stream >> temp;
-//        qDebug() << temp;
-//    }
-
-    //
-    mVMDataModel.addData(Parameter("VM1", "runnig"));
-    mVMDataModel.addData(Parameter("VM2", "off"));
-    mVMDataModel.addData(Parameter("VM3", "off"));
+    QTextStream stream (&vmInfo, QIODevice::ReadOnly);
+    while(!stream.atEnd()) {
+        QString temp1, temp2;
+        stream >> temp1 >> temp2;
+        mVMDataModel.addData(Parameter(temp1, temp2));
+    }
 }
 
 QString RootContext::execCommand(const char *cmd)
@@ -50,8 +48,6 @@ QString RootContext::execCommand(const char *cmd)
     while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
         result += buffer.data();
     }
-
-    //qDebug() << QString::fromStdString(result);
 
     return QString::fromStdString(result);
 }
