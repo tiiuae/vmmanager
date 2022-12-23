@@ -29,16 +29,14 @@ Button {
         }
     }
 
-    Rectangle {
-        id: indicator
+    PowerSwitcher {
+        id: onOffSwitch
 
         anchors.top: parent.top
         anchors.right: parent.right
-        anchors.margins: 5
-        width: 15
-        height: width
-        radius: height/2
-        color: vmStatus == "runnig" ? Constants.indicatorOn : Constants.indicatorOff
+        anchors.margins: 3
+        powerOn: vmStatus === "running"
+        onPowerChanged: rootContext.powerChanged(powerOn, vmName)
     }
 
     Label {

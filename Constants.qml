@@ -21,6 +21,7 @@ QtObject {
     readonly property color backgroundColor1: "#E0E0E0"
     readonly property color indicatorOn: "#35CE8D"
     readonly property color indicatorOff: "#AE4634"
+    readonly property color graphColor: "#29b6f6"
 
     //?
     readonly property color accentColor0: "#f8bd7f"//mellow apricot

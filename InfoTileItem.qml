@@ -33,6 +33,6 @@ Rectangle {
         lineWidth: 10
         size: 150
         secondaryColor: Constants.backgroundColor1
-        primaryColor: "#29b6f6"
+        primaryColor: Constants.graphColor
     }
 }

@@ -37,6 +37,16 @@ void RootContext::updateModel()
     }
 }
 
+void RootContext::powerChanged(bool on, QString name)
+{
+    qDebug() << on << name;
+
+//    if (on)
+//        execCommand("start vm");
+//    else
+//        execCommand("stop vm");
+}
+
 QString RootContext::execCommand(const char *cmd)
 {
     std::array<char, 128> buffer;

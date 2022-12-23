@@ -7,5 +7,6 @@
         <file>InfoTileItem.qml</file>
         <file>qmldir</file>
         <file>Constants.qml</file>
+        <file>PowerSwitcher.qml</file>
     </qresource>
 </RCC>
