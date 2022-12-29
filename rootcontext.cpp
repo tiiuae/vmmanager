@@ -37,14 +37,14 @@ void RootContext::updateModel()
     }
 }
 
-void RootContext::powerChanged(bool on, QString name)
+void RootContext::switchPower(bool on, QString name)
 {
     qDebug() << on << name;
 
 //    if (on)
-//        execCommand("start vm");
+//        execCommand("vm-start");
 //    else
-//        execCommand("stop vm");
+//        execCommand("vm-stop");
 }
 
 QString RootContext::execCommand(const char *cmd)

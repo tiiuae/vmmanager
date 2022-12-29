@@ -36,7 +36,7 @@ Button {
         anchors.right: parent.right
         anchors.margins: 3
         powerOn: vmStatus === "running"
-        onPowerChanged: rootContext.powerChanged(powerOn, vmName)
+        onPowerChanged: rootContext.switchPower(powerOn, vmName)
     }
 
     Label {

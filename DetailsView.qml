@@ -73,5 +73,7 @@ Window {
 
         powerOn: statusField === "running"
         borderColor: "black"
+
+        onPowerChanged: rootContext.switchPower(powerOn, nameField)
     }
 }

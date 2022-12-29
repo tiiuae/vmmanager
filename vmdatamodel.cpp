@@ -36,7 +36,6 @@ QHash<int, QByteArray> VMDataModel::VMDataModel::roleNames() const {
 
 bool VMDataModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    //write down changes into JSON directly?
     if (index.row() < 0 || index.row() >= parameters.count())
         return false;
 
@@ -51,7 +50,7 @@ bool VMDataModel::setData(const QModelIndex &index, const QVariant &value, int r
 Qt::ItemFlags VMDataModel::flags(const QModelIndex &index) const
 {
     Q_UNUSED(index)
-    return Qt::ItemIsEditable;
+    return Qt::ItemIsEditable | Qt::ItemIsSelectable;//is it needed for power on/off?
 }
 
 void VMDataModel::addData(const Parameter &Parameter)

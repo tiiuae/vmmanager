@@ -13,7 +13,7 @@ public:
     VMDataModel * getVMDataModel() {return &mVMDataModel;}
 
     Q_INVOKABLE void updateModel();
-    Q_INVOKABLE void powerChanged(bool on, QString name);
+    Q_INVOKABLE void switchPower(bool on, QString name);
 
 
 private:
