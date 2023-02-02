@@ -9,33 +9,72 @@ ApplicationWindow {
     width: 800
     height: 600
     visible: true
-    title: qsTr("VM manager")
+    flags: Qt.FramelessWindowHint | Qt.Window
 
     header: ToolBar {
-        RowLayout {
+        id: toolBar
+
+        height: 50
+
+        Label {
+            id: vmLabel
+            text: "Virtual Machines"
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
-            height: parent.height
-            spacing: Constants.spacing
-            ToolButton {
-                action: updateAction
-            }
-            ToolButton {
-                text: "View"
-            }
-            ToolButton {
-                text: "Help"
-            }
+            anchors.margins: Constants.baseMargin
+            color: Constants.textColor0
+        }
+
+        Label {
+            id: ghafLabel
+            text: "GHAF"
+            anchors.centerIn: parent
+            color: Constants.textColor0
         }
 
         ToolButton {
+            id: menuButton
+
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: closeButton.left
+            height: parent.height
+
+            text: qsTr("⋮")
+            onClicked: generalMenu.open()
+        }
+
+        ToolButton {
+            id: closeButton
+
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
             height: parent.height
 
-            text: qsTr("⋮")
-            //onClicked: menu.open()
+            icon.source: "/pic/close"
+            onClicked: Qt.quit()
         }
+
+        background: Rectangle {
+            anchors.fill: parent
+            color: Constants.barColor
+        }
+    }
+
+    Menu {
+        id: generalMenu
+
+        MenuItem {
+            text: "Settings"
+        }
+        MenuItem {
+            text: "Update view"
+            action: updateAction
+        }
+
+        //background
+
+        //bug: incorrect positioning!
+        //set x and y
     }
 
     Action {
@@ -58,7 +97,7 @@ ApplicationWindow {
         anchors.fill: parent
         anchors.margins: Constants.baseMargin
 
-        cellHeight: 140
+        cellHeight: 160
         cellWidth: 220
 
 
@@ -66,16 +105,6 @@ ApplicationWindow {
         delegate: TileItemDelegate {
             vmName: name
             vmStatus: status
-
-            onClicked: {
-                var component = Qt.createComponent("DetailsView.qml")
-                if (component.status === Component.Ready) {
-                    var detailsView = component.createObject(root)
-                    detailsView.nameField = name
-                    detailsView.statusField = status
-                    detailsView.show()
-                }
-            }
         }
     }
 }

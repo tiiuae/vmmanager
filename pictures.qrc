@@ -1,3 +1,8 @@
 <RCC>
-    <qresource prefix="/pic"/>
+    <qresource prefix="/pic">
+        <file alias="shield">pictures/Shield.png</file>
+        <file alias="power">pictures/Shutdown.png</file>
+        <file alias="settings">pictures/Settings.png</file>
+        <file alias="close">pictures/Close.png</file>
+    </qresource>
 </RCC>

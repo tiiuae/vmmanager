@@ -53,3 +53,13 @@ Item {
             }
     }
 }
+
+//    PowerSwitcher {
+//        id: onOffSwitch
+
+//        anchors.top: parent.top
+//        anchors.right: parent.right
+//        anchors.margins: 3
+//        powerOn: vmStatus === "running"
+//        onPowerChanged: rootContext.switchPower(powerOn, vmName)
+//    }

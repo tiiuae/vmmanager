@@ -17,8 +17,14 @@ QtObject {
     //colors
     readonly property color baseColor0: "#95ADB6"
     readonly property color baseColor1: "#0C2D48"
-    readonly property color backgroundColor0: "#EDF2F4"
-    readonly property color backgroundColor1: "#E0E0E0"
+
+    readonly property color barColor: "#2E3B4C"
+
+    readonly property color backgroundColor0: "#FFFFFF"
+    readonly property color backgroundColor1: "#EAF2F7"
+    readonly property color backgroundColor2: "#2E3B4C"
+    readonly property color iconBackground: "#597393"
+
     readonly property color indicatorOn: "#35CE8D"
     readonly property color indicatorOff: "#AE4634"
     readonly property color graphColor: "#29b6f6"

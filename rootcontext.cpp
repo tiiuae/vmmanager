@@ -8,10 +8,11 @@
 #include <QDebug>
 
 /*
-    Now there is only one way to retrieve appVM's info: using "lsvm" command,
-    which provides us with names and statuses of appVM's.
+    Now there is no clear way to get the VM info, but probably it will be provided by some command line utils.
 
     For testing purposes the test.txt file is used. This file must be in the same directiry as executable file.
+    The template is shown below:
+    <VM_name> <status>
 */
 
 RootContext::RootContext()

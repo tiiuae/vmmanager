@@ -8,5 +8,7 @@
         <file>qmldir</file>
         <file>Constants.qml</file>
         <file>PowerSwitcher.qml</file>
+        <file>TileMenu.qml</file>
+        <file>ActionButton.qml</file>
     </qresource>
 </RCC>

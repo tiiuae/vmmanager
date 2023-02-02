@@ -2,101 +2,98 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
 
-Button {
+Item {
     id: root
 
-    property string vmName: ""
-    property string vmStatus: ""
+    property alias vmName: menu.vmName
+    property alias vmStatus: menu.vmStatus
 
     width: 200
-    height: 120
-    background: Rectangle {
-        id: backgroundRect
+    height: 150
 
-        anchors.fill: parent
-        color: Constants.baseColor0
+    Rectangle {
+        id: appStatusItem//appIcon
 
-        LinearGradient {
-            id: backgroundGradient
+        width: parent.width
+        height: 120
 
-            anchors.fill: backgroundRect
-            start: Qt.point(0, 0)//backgroundRect.width/5, backgroundRect.height/5)
-            end: Qt.point(backgroundRect.width, backgroundRect.height)
-            gradient: Gradient {
-                GradientStop { position: 0.0; color: Constants.baseColor0 }
-                GradientStop { position: 1.0; color: Constants.baseColor1 }
-            }
+        anchors.top: parent.top
+
+        color: Constants.backgroundColor1
+
+        Image {
+            id: safetyIcon
+
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.margins: Constants.spacing
+
+            source: "/pic/shield"
+            visible: false
+        }
+
+        ColorOverlay {
+            anchors.fill: safetyIcon
+            source: safetyIcon
+            color: Constants.iconBackground
         }
     }
 
-    PowerSwitcher {
-        id: onOffSwitch
+    TileMenu {
+        id: menu
 
         anchors.top: parent.top
-        anchors.right: parent.right
-        anchors.margins: 3
-        powerOn: vmStatus === "running"
-        onPowerChanged: rootContext.switchPower(powerOn, vmName)
+        width: parent.width
+        startHeight: appStatusItem.height
+        completeHeight: root.height
     }
 
     Label {
         id: nameLabel
 
-        text: vmName
-        anchors.centerIn: parent
+        text: vmName + " " + vmStatus
+        anchors.top: appStatusItem.bottom
+        anchors.horizontalCenter: appStatusItem.horizontalCenter
+        horizontalAlignment: Text.AlignHCenter
         anchors.margins: 5
+        width: appStatusItem.width
+        height: 25
         font.pixelSize: 18
         color: Constants.textColor1
     }
 
-    Label {
-        id: statusLabel
-
-        text: vmStatus
-        anchors.top: nameLabel.bottom
-        anchors.horizontalCenter: nameLabel.horizontalCenter
-        anchors.margins: 5
-        font.pixelSize: 12
-        color: Constants.textColor1
+    HoverHandler {
+        id: mouse
     }
 
     states: [
         State {
             name: "normal"
-            when: !root.pressed && root.enabled
+            when: root.enabled && !mouse.hovered
 
-            PropertyChanges {
-                target: backgroundGradient
-                visible: false
-            }
-            PropertyChanges {
-                target: statusLabel
-                color: Constants.textColor1
-            }
             PropertyChanges {
                 target: nameLabel
                 color: Constants.textColor1
+            }
+            PropertyChanges {
+                target: menu
+                stateVisible: false
             }
         },
         State {
-            name: "pressed"
-            when: root.pressed && root.enabled
+            name: "hovered"
+            when: mouse.hovered && root.enabled
 
-            PropertyChanges {
-                target: backgroundGradient
-                visible: true
-            }
-            PropertyChanges {
-                target: statusLabel
-                color: Constants.textColor0
-            }
             PropertyChanges {
                 target: nameLabel
                 color: Constants.textColor0
             }
+            PropertyChanges {
+                target: menu
+                stateVisible: true
+            }
         }
         //+ disabled when not running?
-
     ]
 }
 
