@@ -10,5 +10,7 @@
         <file>PowerSwitcher.qml</file>
         <file>TileMenu.qml</file>
         <file>ActionButton.qml</file>
+        <file>ToolButtonBackground.qml</file>
+        <file>ToolButtonContentItem.qml</file>
     </qresource>
 </RCC>

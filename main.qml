@@ -16,6 +16,17 @@ ApplicationWindow {
 
         height: 50
 
+        Item {//frameless window cannot be moved!
+            id: _dragHandler
+
+            anchors.fill: parent
+            DragHandler {
+                acceptedDevices: PointerDevice.GenericPointer
+                grabPermissions:  PointerHandler.CanTakeOverFromItems | PointerHandler.CanTakeOverFromHandlersOfDifferentType | PointerHandler.ApprovesTakeOverByAnything
+                onActiveChanged: if (active) root.startSystemMove()
+            }
+        }
+
         Label {
             id: vmLabel
             text: "Virtual Machines"
@@ -38,8 +49,19 @@ ApplicationWindow {
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: closeButton.left
             height: parent.height
+            width: 50
 
-            text: qsTr("⋮")
+            contentItem: ToolButtonContentItem {
+                anchors.fill: parent
+                control: parent
+                text: qsTr("⋮")
+            }
+
+            background: ToolButtonBackground {
+                anchors.fill: parent
+                control: parent
+            }
+
             onClicked: generalMenu.open()
         }
 
@@ -49,8 +71,19 @@ ApplicationWindow {
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
             height: parent.height
+            width: 50
 
-            icon.source: "/pic/close"
+            contentItem: ToolButtonContentItem {
+                anchors.fill: parent
+                control: parent
+                image: "/pic/close"
+            }
+
+            background: ToolButtonBackground {
+                anchors.fill: parent
+                control: parent
+            }
+
             onClicked: Qt.quit()
         }
 
@@ -63,6 +96,9 @@ ApplicationWindow {
     Menu {
         id: generalMenu
 
+        x: menuButton.x + menuButton.width/2
+        y: toolBar.y + toolBar.height
+
         MenuItem {
             text: "Settings"
         }
@@ -72,9 +108,6 @@ ApplicationWindow {
         }
 
         //background
-
-        //bug: incorrect positioning!
-        //set x and y
     }
 
     Action {
