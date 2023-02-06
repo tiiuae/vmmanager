@@ -46,6 +46,7 @@ Item {
         width: parent.width
         startHeight: appStatusItem.height
         completeHeight: root.height
+        hovered: mouse.hovered
     }
 
     Label {
@@ -59,41 +60,11 @@ Item {
         width: appStatusItem.width
         height: 25
         font.pixelSize: 18
-        color: Constants.textColor1
+        color: mouse.hovered ? Constants.textColor0 : Constants.textColor1
     }
 
     HoverHandler {
         id: mouse
     }
-
-    states: [
-        State {
-            name: "normal"
-            when: root.enabled && !mouse.hovered
-
-            PropertyChanges {
-                target: nameLabel
-                color: Constants.textColor1
-            }
-            PropertyChanges {
-                target: menu
-                stateVisible: false
-            }
-        },
-        State {
-            name: "hovered"
-            when: mouse.hovered && root.enabled
-
-            PropertyChanges {
-                target: nameLabel
-                color: Constants.textColor0
-            }
-            PropertyChanges {
-                target: menu
-                stateVisible: true
-            }
-        }
-        //+ disabled when not running?
-    ]
 }
 

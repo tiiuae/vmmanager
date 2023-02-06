@@ -8,9 +8,14 @@ Rectangle {
 
     property string vmName: ""
     property string vmStatus: ""
-    property bool stateVisible: false
+    property bool hovered: false
     property int startHeight: 120
     property int completeHeight: 150
+
+    QtObject {
+        id: internal
+        property bool powerOn: vmStatus === "running"
+    }
 
     visible: opacity != 0
     color: Constants.backgroundColor2
@@ -21,10 +26,11 @@ Rectangle {
 
         ActionButton {
             image: "/pic/power"
-            onClicked: rootContext.switchPower(false, vmName)
+//            onClicked: rootContext.switchPower(!internal.powerOn, vmName) + rootContext.update() ?
         }
         ActionButton {
             image: "/pic/settings"
+            visible: internal.powerOn
             onClicked: {
                 var component = Qt.createComponent("DetailsView.qml")
                 if (component.status === Component.Ready) {
@@ -39,7 +45,15 @@ Rectangle {
 
     states: [
         State {
-            when: stateVisible;
+            when: !hovered &&!internal.powerOn;
+            PropertyChanges {
+                target: root
+                opacity: 0.8
+                height: startHeight
+            }
+        },
+        State {
+            when: hovered && !internal.powerOn;
             PropertyChanges {
                 target: root
                 opacity: 0.8
@@ -47,7 +61,15 @@ Rectangle {
             }
         },
         State {
-            when: !stateVisible;
+            when: hovered && internal.powerOn;
+            PropertyChanges {
+                target: root
+                opacity: 0.8
+                height: completeHeight
+            }
+        },
+        State {
+            when: !hovered && internal.powerOn;
             PropertyChanges {
                 target: root
                 opacity: 0.0

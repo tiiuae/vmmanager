@@ -96,18 +96,18 @@ ApplicationWindow {
     GeneralMenu {
         id: generalMenu
 
-        x: menuButton.x + menuButton.width/2
+        x: menuButton.x + menuButton.width/2 - getPointerX()
         y: toolBar.y + toolBar.height
+        width: 200
 
         Action {
             text: "Settings"
         }
 
         Action {
-            text: "Update"
+            text: "Update view"
             shortcut: "Ctrl+R"
             onTriggered: rootContext.updateModel()
-            //tooltip: "Update VM info"
         }
     }
 
