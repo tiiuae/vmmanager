@@ -12,5 +12,6 @@
         <file>ActionButton.qml</file>
         <file>ToolButtonBackground.qml</file>
         <file>ToolButtonContentItem.qml</file>
+        <file>GeneralMenu.qml</file>
     </qresource>
 </RCC>

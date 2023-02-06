@@ -93,29 +93,22 @@ ApplicationWindow {
         }
     }
 
-    Menu {
+    GeneralMenu {
         id: generalMenu
 
         x: menuButton.x + menuButton.width/2
         y: toolBar.y + toolBar.height
 
-        MenuItem {
+        Action {
             text: "Settings"
         }
-        MenuItem {
-            text: "Update view"
-            action: updateAction
+
+        Action {
+            text: "Update"
+            shortcut: "Ctrl+R"
+            onTriggered: rootContext.updateModel()
+            //tooltip: "Update VM info"
         }
-
-        //background
-    }
-
-    Action {
-        id: updateAction
-        text: "Update"
-        shortcut: "Ctrl+R"
-        onTriggered: rootContext.updateModel()
-        //tooltip: "Update VM info"
     }
 
     background: Rectangle {
