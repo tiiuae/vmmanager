@@ -16,8 +16,27 @@
 */
 
 RootContext::RootContext()
-{   
+{
     updateModel();
+}
+
+void RootContext::detailsRequested()
+{
+    m_currentView = Views::DetailsView;
+    emit currentViewChanged();
+}
+
+void RootContext::settingsRequiested()
+{
+    m_currentView = Views::LoginView;
+    emit currentViewChanged();
+}
+
+void RootContext::loginRequest(const QString &passwd)
+{
+    //if login ok - display settings
+    m_currentView = Views::GeneralSettings;
+    emit currentViewChanged();
 }
 
 void RootContext::updateModel()

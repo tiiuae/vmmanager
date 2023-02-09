@@ -13,5 +13,6 @@
         <file>ToolButtonBackground.qml</file>
         <file>ToolButtonContentItem.qml</file>
         <file>GeneralMenu.qml</file>
+        <file>LoginView.qml</file>
     </qresource>
 </RCC>

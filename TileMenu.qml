@@ -39,6 +39,8 @@ Rectangle {
                     detailsView.statusField = vmStatus
                     detailsView.show()
                 }
+                //or rootContext.detailsRequested()?
+                //brakes the view's management
             }
         }
     }
@@ -77,6 +79,7 @@ Rectangle {
             }
         }
     ]
+
     transitions: Transition {
             NumberAnimation { property: "opacity"; duration: 500}
             NumberAnimation { property: "height"; duration: 500}

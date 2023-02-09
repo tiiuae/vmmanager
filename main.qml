@@ -3,6 +3,8 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
+import ViewEnums 1.0
+
 ApplicationWindow {
     id: root
 
@@ -102,6 +104,7 @@ ApplicationWindow {
 
         Action {
             text: "Settings"
+            onTriggered: rootContext.settingsRequiested()
         }
 
         Action {
@@ -116,9 +119,13 @@ ApplicationWindow {
         color: Constants.backgroundColor0
     }
 
-    //view
+    //! Change visibility of views or load them dynamically as components?
+
+    //main view
     GridView {
         id: grid
+
+        visible: rootContext.currentPage === Views.MainVMView
 
         anchors.fill: parent
         anchors.margins: Constants.baseMargin
@@ -133,4 +140,14 @@ ApplicationWindow {
             vmStatus: status
         }
     }
+
+    //VM details view
+
+    //login view
+    LoginView {
+        anchors.centerIn: parent
+        visible: rootContext.currentPage === Views.LoginView
+    }
+
+    //general settings view
 }

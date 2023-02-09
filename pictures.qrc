@@ -4,5 +4,7 @@
         <file alias="power">pictures/Shutdown.png</file>
         <file alias="settings">pictures/Settings.png</file>
         <file alias="close">pictures/Close.png</file>
+        <file alias="filler">pictures/Vector.png</file>
+        <file alias="lock">pictures/lock.png</file>
     </qresource>
 </RCC>
