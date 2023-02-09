@@ -14,5 +14,9 @@
         <file>ToolButtonContentItem.qml</file>
         <file>GeneralMenu.qml</file>
         <file>LoginView.qml</file>
+        <file>GeneralSettingsView.qml</file>
+        <file>SecondaryViewHeader.qml</file>
+        <file>ColoredImage.qml</file>
+        <file>TextlessToolButtonContentItem.qml</file>
     </qresource>
 </RCC>

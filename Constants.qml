@@ -2,6 +2,10 @@ pragma Singleton
 import QtQuick 2.15
 
 QtObject {
+    //sizes
+    readonly property int toolButtonSize: 50
+    readonly property int secondaryHeaderHeight: 35
+
     //margins
     readonly property int spacing: 5
     readonly property int baseMargin: 5

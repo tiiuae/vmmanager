@@ -20,6 +20,12 @@ RootContext::RootContext()
     updateModel();
 }
 
+void RootContext::mainViewRequiested()
+{
+    m_currentView = Views::MainVMView;
+    emit currentViewChanged();
+}
+
 void RootContext::detailsRequested()
 {
     m_currentView = Views::DetailsView;
@@ -64,7 +70,12 @@ void RootContext::switchPower(bool on, QString name)
 //    if (on)
 //        execCommand("vm-start");
 //    else
-//        execCommand("vm-stop");
+    //        execCommand("vm-stop");
+}
+
+void RootContext::saveSettings()
+{
+
 }
 
 QString RootContext::execCommand(const char *cmd)

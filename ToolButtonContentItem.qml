@@ -1,6 +1,5 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtGraphicalEffects 1.15
 
 Item {
     id: root
@@ -22,17 +21,11 @@ Item {
         visible: text != ""
     }
 
-    Image {
+    ColoredImage {
         id: contentImage
 
         anchors.centerIn: parent
         source: root.image
-        visible: false
-    }
-
-    ColorOverlay {
-        anchors.fill: contentImage
-        source: contentImage
         color: internal.contentColor
         visible: image != ""
     }

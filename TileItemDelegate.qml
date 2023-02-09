@@ -1,6 +1,5 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtGraphicalEffects 1.15
 
 Item {
     id: root
@@ -21,7 +20,7 @@ Item {
 
         color: Constants.backgroundColor1
 
-        Image {
+        ColoredImage {
             id: safetyIcon
 
             anchors.top: parent.top
@@ -29,12 +28,6 @@ Item {
             anchors.margins: Constants.spacing
 
             source: "/pic/shield"
-            visible: false
-        }
-
-        ColorOverlay {
-            anchors.fill: safetyIcon
-            source: safetyIcon
             color: Constants.iconBackground
         }
     }

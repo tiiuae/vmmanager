@@ -16,7 +16,7 @@ ApplicationWindow {
     header: ToolBar {
         id: toolBar
 
-        height: 50
+        height: Constants.toolButtonSize
 
         Item {//frameless window cannot be moved!
             id: _dragHandler
@@ -51,7 +51,7 @@ ApplicationWindow {
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: closeButton.left
             height: parent.height
-            width: 50
+            width: Constants.toolButtonSize
 
             contentItem: ToolButtonContentItem {
                 anchors.fill: parent
@@ -67,13 +67,13 @@ ApplicationWindow {
             onClicked: generalMenu.open()
         }
 
-        ToolButton {
+        ToolButton {//create component for that
             id: closeButton
 
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
             height: parent.height
-            width: 50
+            width: Constants.toolButtonSize
 
             contentItem: ToolButtonContentItem {
                 anchors.fill: parent
@@ -150,4 +150,8 @@ ApplicationWindow {
     }
 
     //general settings view
+    GeneralSettingsView {
+        anchors.fill: parent
+        visible: rootContext.currentPage === Views.GeneralSettings
+    }
 }
