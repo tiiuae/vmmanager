@@ -4,8 +4,10 @@ import QtQuick.Controls 2.15
 Item {
     id: root
 
-    width: 240
-    height: 100
+    SecondaryViewHeader {
+        anchors.left: parent.left
+        anchors.top: parent.top
+    }
 
     Image {
         id: imageItem
@@ -15,22 +17,21 @@ Item {
         source: "/pic/lock"
 
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: parent.top
-        anchors.margins: Constants.baseMargin
+        anchors.bottom: passwordInput.top
+        anchors.margins: Constants.baseMargin * 3
     }
 
     TextField {
         id: passwordInput
 
-        width: parent.width
+        width: 240
         height: 30
         echoMode: TextInput.Password
         clip: true
 
         color: Constants.textColor1
 
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: parent.bottom
+        anchors.centerIn: parent
         anchors.margins: Constants.baseMargin
 
         background: Rectangle {

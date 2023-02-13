@@ -8,7 +8,7 @@ import ViewEnums 1.0
 ApplicationWindow {
     id: root
 
-    width: 800
+    width: 900
     height: 600
     visible: true
     flags: Qt.FramelessWindowHint | Qt.Window
@@ -145,7 +145,7 @@ ApplicationWindow {
 
     //login view
     LoginView {
-        anchors.centerIn: parent
+        anchors.fill: parent
         visible: rootContext.currentPage === Views.LoginView
     }
 

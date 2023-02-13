@@ -11,7 +11,7 @@ Item {
     height: 150
 
     Rectangle {
-        id: appStatusItem//appIcon
+        id: appStatusItem
 
         width: parent.width
         height: 120
@@ -29,6 +29,14 @@ Item {
 
             source: "/pic/shield"
             color: Constants.iconBackground
+        }
+
+        Image {
+            id: appIcon
+
+            anchors.centerIn: parent
+            //size
+            source: "/pic/filler"//should be app's icon
         }
     }
 
