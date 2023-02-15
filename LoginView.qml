@@ -36,7 +36,7 @@ Item {
 
         background: Rectangle {
             anchors.fill: parent
-            color: Constants.textInputBackground
+            color: Constants.backgroundColor3
         }
 
         onAccepted: {

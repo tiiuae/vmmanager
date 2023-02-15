@@ -35,7 +35,9 @@ Item {
             id: appIcon
 
             anchors.centerIn: parent
-            //size
+
+            //! TODO: size changing when mouse.hovered
+
             source: "/pic/filler"//should be app's icon
         }
     }

@@ -28,7 +28,7 @@ QtObject {
     readonly property color backgroundColor1: "#EAF2F7"
     readonly property color backgroundColor2: "#2E3B4C"
     readonly property color iconBackground: "#597393"
-    readonly property color textInputBackground:"#DDEAF3"
+    readonly property color backgroundColor3:"#DDEAF3"
 
     readonly property color indicatorOn: "#35CE8D"
     readonly property color indicatorOff: "#AE4634"

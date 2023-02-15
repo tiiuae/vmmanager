@@ -29,6 +29,8 @@ ApplicationWindow {
             }
         }
 
+        //! TODO: Change the size of frameless window!
+
         Label {
             id: vmLabel
             text: "Virtual Machines"
@@ -112,6 +114,11 @@ ApplicationWindow {
             shortcut: "Ctrl+R"
             onTriggered: rootContext.updateModel()
         }
+
+        Action {
+            text: "Show dialog (test)"
+            onTriggered: popup.open()
+        }
     }
 
     background: Rectangle {
@@ -153,5 +160,19 @@ ApplicationWindow {
     GeneralSettingsView {
         anchors.fill: parent
         visible: rootContext.currentPage === Views.GeneralSettings
+    }
+
+    ScreenBlur {
+        id: popupBackground
+
+        anchors.fill: parent
+        isBlur: popup.opened
+    }
+
+    //dialog popup
+    DialogPopup {
+        id: popup
+        text: "Test dialog popup"
+        anchors.centerIn: parent
     }
 }
