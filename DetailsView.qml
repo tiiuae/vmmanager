@@ -3,48 +3,75 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
-Window {
+Item {
     id: root
 
-    property string nameField: ""
-    property string statusField: "off"
+    property var currentItem: null
+    property var modelIndex: null
 
-    minimumHeight: 300
-    minimumWidth: row.width + Constants.baseMargin*2
+    //way to send response!
 
-    color: Constants.backgroundColor0
+    SecondaryViewHeader {
+        id: header
 
-    Label {
-        id: nameLabel
-
+        anchors.left: parent.left
         anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.margins: 5
-        text: "VM name: " + nameField
+        text: "Settings / " + (currentItem ? currentItem.vmName : "")
     }
 
-    Label {
-        id: statusLabel
+    Row {
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.margins: Constants.baseMargin
 
-        anchors.top: nameLabel.bottom
-        anchors.left: parent.left
-        anchors.margins: 5
-        text: "VM status: " + statusField
-    }
+        height: header.height
+        spacing: Constants.spacing
 
-    Label {
-        id: timeLabel
+        Button {
+            width: 100
+            height: header.height
 
-        anchors.top: statusLabel.bottom
-        anchors.left: parent.left
-        anchors.margins: 5
-        text: "VM runnig time: 00:30"
+            contentItem: ToolButtonContentItem {
+                anchors.fill: parent
+                control: parent
+                text: "Shutdown"
+                baseColor: Constants.backgroundColor2
+                pressColor: Constants.textColor0
+            }
+
+            background: ToolButtonBackground {
+                anchors.fill: parent
+                control: parent
+                color: Constants.backgroundColor2
+            }
+
+//            onClicked: rootContext.switchPower()
+        }
+
+        Button {
+            width: 100
+            height: header.height
+
+            contentItem: ToolButtonContentItem {
+                anchors.fill: parent
+                control: parent
+                text: "Pause"
+                baseColor: Constants.backgroundColor2
+                pressColor: Constants.textColor0
+            }
+
+            background: ToolButtonBackground {
+                anchors.fill: parent
+                control: parent
+                color: Constants.backgroundColor2
+            }
+        }
     }
 
     Row {
         id: row
 
-        anchors.top: timeLabel.bottom
+        anchors.top: header.bottom
         anchors.left: parent.left
         anchors.margins: 5
         spacing: 10
@@ -62,18 +89,5 @@ Window {
             text: "Network load: 40%"
             value: 0.4
         }
-    }
-
-    PowerSwitcher {
-        id: onOffSwitch
-
-        anchors.top: parent.top
-        anchors.right: parent.right
-        anchors.margins: 3
-
-        powerOn: statusField === "running"
-        borderColor: "black"
-
-        onPowerChanged: rootContext.switchPower(powerOn, nameField)
     }
 }

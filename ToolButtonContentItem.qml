@@ -7,17 +7,15 @@ Item {
     property QtObject control: null
     property string text: ""
     property string image: ""
+    property color baseColor: Constants.textColor0
+    property color pressColor: Constants.backgroundColor2
 
-    QtObject {
-        id: internal
-
-        property color contentColor: Constants.textColor0
-    }
 
     Label {
+        id: contentText
+
         anchors.centerIn: parent
         text: root.text
-        color: internal.contentColor
         visible: text != ""
     }
 
@@ -26,7 +24,6 @@ Item {
 
         anchors.centerIn: parent
         source: root.image
-        color: internal.contentColor
         visible: image != ""
     }
 
@@ -35,16 +32,24 @@ Item {
             name: "normal"
             when: control.enabled && !control.pressed
             PropertyChanges {
-                target: internal
-                contentColor: Constants.textColor0
+                target: contentText
+                color:baseColor
+            }
+            PropertyChanges {
+                target: contentImage
+                color: baseColor
             }
         },
         State {
             name: "pressed"
             when: control.enabled && control.pressed
             PropertyChanges {
-                target: internal
-                contentColor: Constants.backgroundColor2
+                target: contentText
+                color:pressColor
+            }
+            PropertyChanges {
+                target: contentImage
+                color:pressColor
             }
         }
     ]

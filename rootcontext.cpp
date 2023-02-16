@@ -26,8 +26,9 @@ void RootContext::mainViewRequiested()
     emit currentViewChanged();
 }
 
-void RootContext::detailsRequested()
+void RootContext::detailsRequested(const QModelIndex &index)
 {
+    qDebug() << "Index row is " << index.row();
     m_currentView = Views::DetailsView;
     emit currentViewChanged();
 }

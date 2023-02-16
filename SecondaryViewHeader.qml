@@ -18,10 +18,12 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         anchors.margins: Constants.baseMargin
 
-        contentItem: TextlessToolButtonContentItem {
+        contentItem: ToolButtonContentItem {
             anchors.fill: parent
             control: parent
             image: "/pic/close"
+            baseColor: Constants.backgroundColor2
+            pressColor: Constants.textColor0
         }
 
         background: ToolButtonBackground {

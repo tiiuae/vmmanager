@@ -6,6 +6,8 @@ Item {
 
     property alias vmName: menu.vmName
     property alias vmStatus: menu.vmStatus
+    property alias indexInModel: menu.indexInModel
+    property bool isCurrent: mouse.hovered
 
     width: 200
     height: 150
@@ -36,7 +38,16 @@ Item {
 
             anchors.centerIn: parent
 
-            //! TODO: size changing when mouse.hovered
+            width: mouse.hovered? implicitWidth*1.2 : implicitWidth
+            height: mouse.hovered? implicitHeight*1.2 : implicitHeight
+
+            Behavior on height {
+                NumberAnimation {duration: 200}
+            }
+
+            Behavior on width {
+                NumberAnimation {duration: 200}
+            }
 
             source: "/pic/filler"//should be app's icon
         }
@@ -47,8 +58,7 @@ Item {
 
         anchors.top: parent.top
         width: parent.width
-        startHeight: appStatusItem.height
-        completeHeight: root.height
+        height: appStatusItem.height
         hovered: mouse.hovered
     }
 
@@ -63,7 +73,7 @@ Item {
         width: appStatusItem.width
         height: 25
         font.pixelSize: 18
-        color: mouse.hovered ? Constants.textColor0 : Constants.textColor1
+        color: Constants.textColor1
     }
 
     HoverHandler {

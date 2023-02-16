@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
+import QtQml.Models 2.15
 
 import ViewEnums 1.0
 
@@ -11,7 +12,7 @@ ApplicationWindow {
     width: 900
     height: 600
     visible: true
-    flags: Qt.FramelessWindowHint | Qt.Window
+    flags: Qt.FramelessWindowHint | Qt.Window //|  Qt.CustomizeWindowHint
 
     header: ToolBar {
         id: toolBar
@@ -69,7 +70,7 @@ ApplicationWindow {
             onClicked: generalMenu.open()
         }
 
-        ToolButton {//create component for that
+        ToolButton {
             id: closeButton
 
             anchors.verticalCenter: parent.verticalCenter
@@ -126,8 +127,6 @@ ApplicationWindow {
         color: Constants.backgroundColor0
     }
 
-    //! Change visibility of views or load them dynamically as components?
-
     //main view
     GridView {
         id: grid
@@ -140,15 +139,34 @@ ApplicationWindow {
         cellHeight: 160
         cellWidth: 220
 
+        model: DelegateModel {
+            model: VMDataModel
+            delegate: TileItemDelegate {
+                vmName: name
+                vmStatus: status
+                indexInModel: grid.model.modelIndex(index)
 
-        model: VMDataModel
-        delegate: TileItemDelegate {
-            vmName: name
-            vmStatus: status
+                onIsCurrentChanged: {
+                    grid.currentIndex = model.index
+                    console.log("item " + grid.currentIndex)
+                }
+            }
         }
     }
 
     //VM details view
+    DetailsView {
+        anchors.fill: parent
+        visible: rootContext.currentPage === Views.DetailsView
+
+        onVisibleChanged: {
+            if (visible) {
+                //then update properties
+                currentItem = grid.currentItem
+                //this is to avoid unneccessary updates which will happen because of binding
+            }
+        }
+    }
 
     //login view
     LoginView {
@@ -162,6 +180,7 @@ ApplicationWindow {
         visible: rootContext.currentPage === Views.GeneralSettings
     }
 
+    //for popup background
     ScreenBlur {
         id: popupBackground
 
@@ -174,5 +193,6 @@ ApplicationWindow {
         id: popup
         text: "Test dialog popup"
         anchors.centerIn: parent
+        //make it versatile!
     }
 }
