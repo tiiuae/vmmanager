@@ -144,10 +144,9 @@ ApplicationWindow {
             delegate: TileItemDelegate {
                 vmName: name
                 vmStatus: status
-                indexInModel: grid.model.modelIndex(index)
 
                 onIsCurrentChanged: {
-                    grid.currentIndex = model.index
+                    grid.currentIndex = model.index//grid.model.index
                     console.log("item " + grid.currentIndex)
                 }
             }

@@ -6,10 +6,10 @@ import QtQuick.Layouts 1.15
 Item {
     id: root
 
-    property var currentItem: null
-    property var modelIndex: null
+    property Item currentItem: null
 
     //way to send response!
+    //command with id/name
 
     SecondaryViewHeader {
         id: header

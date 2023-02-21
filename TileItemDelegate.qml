@@ -6,7 +6,6 @@ Item {
 
     property alias vmName: menu.vmName
     property alias vmStatus: menu.vmStatus
-    property alias indexInModel: menu.indexInModel
     property bool isCurrent: mouse.hovered
 
     width: 200

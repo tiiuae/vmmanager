@@ -6,7 +6,6 @@ import QtGraphicalEffects 1.15
 Rectangle {
     id: root
 
-    property var indexInModel: null
     property string vmName: ""
     property string vmStatus: ""
 
@@ -32,7 +31,7 @@ Rectangle {
             image: "/pic/settings"
             visible: internal.powerOn
             onClicked: {
-                rootContext.detailsRequested(indexInModel)
+                rootContext.detailsRequested()
                 console.log(vmName)
             }
         }

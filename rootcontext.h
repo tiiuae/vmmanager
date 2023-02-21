@@ -37,7 +37,7 @@ public:
     Q_INVOKABLE void mainViewRequiested();
     Q_INVOKABLE void settingsRequiested();
     Q_INVOKABLE void loginRequest(const QString &passwd);
-    Q_INVOKABLE void detailsRequested(const QModelIndex &index);
+    Q_INVOKABLE void detailsRequested();
     Q_INVOKABLE void updateModel();
     Q_INVOKABLE void switchPower(bool on, QString name);
     Q_INVOKABLE void saveSettings(/*???*/);
