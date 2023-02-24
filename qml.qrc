@@ -7,7 +7,6 @@
         <file>InfoTileItem.qml</file>
         <file>qmldir</file>
         <file>Constants.qml</file>
-        <file>PowerSwitcher.qml</file>
         <file>TileMenu.qml</file>
         <file>ActionButton.qml</file>
         <file>ToolButtonBackground.qml</file>
