@@ -8,6 +8,7 @@ QtObject {
 
     //margins
     readonly property int spacing: 5
+    readonly property int smallSpacing: 3
     readonly property int baseMargin: 5
 
     //corner radiuses

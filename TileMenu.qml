@@ -21,10 +21,15 @@ Rectangle {
 
     Row {
         anchors.centerIn: parent
-        spacing: Constants.spacing
+        spacing: Constants.smallSpacing
 
         ActionButton {
             image: "/pic/power"
+//            onClicked: rootContext.switchPower(!internal.powerOn, vmName) + rootContext.update() ?
+        }
+        ActionButton {
+            image: "/pic/pause"
+            visible: internal.powerOn
 //            onClicked: rootContext.switchPower(!internal.powerOn, vmName) + rootContext.update() ?
         }
         ActionButton {

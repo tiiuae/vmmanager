@@ -7,7 +7,7 @@ Button {
 
     property string image: ""
 
-    width: 30
+    width: 35
     height: width
 
     background: Rectangle {

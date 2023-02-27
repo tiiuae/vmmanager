@@ -7,6 +7,7 @@ Item {
     property alias vmName: menu.vmName
     property alias vmStatus: menu.vmStatus
     property bool isCurrent: mouse.hovered
+    property int vmSafetyStatus: 0
 
     width: 200
     height: 150
@@ -21,15 +22,24 @@ Item {
 
         color: Constants.backgroundColor1
 
-        ColoredImage {
+        Image {
             id: safetyIcon
 
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.margins: Constants.spacing
 
-            source: "/pic/shield"
-            color: Constants.iconBackground
+            source: {//add enum!
+                if (vmSafetyStatus === 0) {
+                    return "/pic/no_risk"
+                }
+                if (vmSafetyStatus === 1) {
+                    return "/pic/medium_risk"
+                }
+                if (vmSafetyStatus === 2) {
+                    return "/pic/high_risk"
+                }
+            }
         }
 
         Image {
