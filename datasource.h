@@ -2,10 +2,9 @@
 #define DATASOURCE_H
 
 #include <QObject>
-
-/*
- * Getter for VM data sent by TCP/DBUS or other ways. It is empty now.
-*/
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QNetworkRequest>
 
 class DataSource : public QObject
 {
@@ -13,8 +12,19 @@ class DataSource : public QObject
 public:
     explicit DataSource(QObject *parent = nullptr);
 
-signals:
+    bool request();
 
+signals:
+    void resultReady(QMap<int, QString> values);//test
+
+private slots:
+    void readReply();
+    void finishReplyReading();
+
+private:
+    QNetworkAccessManager * networkManager;
+    QNetworkReply * networkReply;
+    QByteArray buffer;
 };
 
 #endif // DATASOURCE_H
