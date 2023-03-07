@@ -21,12 +21,13 @@ Button {
                 NumberAnimation { duration: 200 }
             }
 
-        Image {
+        ColoredImage {
             id: imageItem
 
             anchors.fill: parent
             anchors.margins: Constants.baseMargin
             source: image
+            color: Constants.textColor0
 
             Behavior on anchors.margins {
                     NumberAnimation { duration: 200 }
