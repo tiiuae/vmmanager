@@ -10,5 +10,7 @@
         <file alias="medium_risk">pictures/Medium alert.svg</file>
         <file alias="no_risk">pictures/Status OK.svg</file>
         <file alias="pause">pictures/Pause negative.svg</file>
+        <file alias="dots_v">pictures/3 dots vertical negative.svg</file>
+        <file alias="dots_h">pictures/3 dots horizontal.svg</file>
     </qresource>
 </RCC>

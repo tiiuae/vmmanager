@@ -170,8 +170,8 @@ ApplicationWindow {
         anchors.fill: parent
         anchors.margins: Constants.baseMargin
 
-        cellHeight: 160
-        cellWidth: 220
+        cellHeight: 130
+        cellWidth: 280
 
         model: DelegateModel {
             model: VMDataModel

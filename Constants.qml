@@ -31,14 +31,11 @@ QtObject {
     readonly property color iconBackground: "#597393"
     readonly property color backgroundColor3:"#DDEAF3"
 
+    readonly property color shadowColor: Qt.rgba(0, 0, 0, 0.04)
+
     readonly property color indicatorOn: "#35CE8D"
     readonly property color indicatorOff: "#AE4634"
     readonly property color graphColor: "#29b6f6"
-
-    //?
-    readonly property color accentColor0: "#f8bd7f"//mellow apricot
-    readonly property color accentColor1: "#f5ac72"//sandy brown
-    readonly property color accentColor2: "#facfad"//apricot
 
     readonly property color textColor0: "#ffffff"
     readonly property color textColor1: "#000000"
