@@ -11,6 +11,8 @@ DataSource::DataSource(QObject *parent)
     networkManager = new QNetworkAccessManager(this);
 }
 
+//! According to API spec: 1 - requiest the VM's list, 2 - get info about VM by id
+
 bool DataSource::request()
 {
     //create request

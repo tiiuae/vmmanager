@@ -191,11 +191,13 @@ ApplicationWindow {
     DetailsView {
         anchors.fill: parent
         visible: rootContext.currentPage === Views.DetailsView
+//        currentItem: grid.currentItem
 
         onVisibleChanged: {
             if (visible) {
                 //then update properties
                 currentItem = grid.currentItem
+                startMovement()
                 //this is to avoid unneccessary updates which will happen because of binding
             }
         }

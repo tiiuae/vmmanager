@@ -11,70 +11,77 @@ Item {
     //way to send response!
     //command with id/name
 
-    SecondaryViewHeader {
-        id: header
-
-        anchors.left: parent.left
-        anchors.top: parent.top
-        text: "Settings / " + (currentItem ? currentItem.vmName : "")
+    function startMovement() {
+        console.log("vmTile x,y:" + vmTile.x + ", " + vmTile.y)
+        row.opacity = 0.0
+        vmTile.x = currentItem.x
+        vmTile.y = currentItem.y
+        appearingAnimation.start()
     }
 
-    Row {
+    TileItemDelegate {
+        id: vmTile
+
+        vmName: currentItem ? currentItem.vmName : ""
+        vmStatus: currentItem ? currentItem.vmStatus : ""
+
+//        x:  currentItem ? currentItem.x : 5
+//        y:  currentItem ? currentItem.y : 5
+    }
+
+    SequentialAnimation {
+        id: appearingAnimation
+
+        PropertyAnimation {
+            target: vmTile
+            properties: "x,y"
+            to: 5
+            duration: 400
+        }
+
+        PropertyAnimation {
+            target: row
+            property: "opacity"
+            to: 1.0
+            duration: 400
+        }
+    }
+
+    Button {
+        id: closeButton
+
+        width: 35
+        height: 35
+
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.margins: Constants.baseMargin
 
-        height: header.height
-        spacing: Constants.spacing
-
-        Button {
-            width: 100
-            height: header.height
-
-            contentItem: ToolButtonContentItem {
-                anchors.fill: parent
-                control: parent
-                text: "Shutdown"
-                baseColor: Constants.backgroundColor2
-                pressColor: Constants.textColor0
-            }
-
-            background: ToolButtonBackground {
-                anchors.fill: parent
-                control: parent
-                color: Constants.backgroundColor2
-            }
-
-//            onClicked: rootContext.switchPower()
+        contentItem: ToolButtonContentItem {
+            anchors.fill: parent
+            control: parent
+            image: "/pic/close"
+            baseColor: Constants.backgroundColor2
+            pressColor: Constants.textColor0
         }
 
-        Button {
-            width: 100
-            height: header.height
-
-            contentItem: ToolButtonContentItem {
-                anchors.fill: parent
-                control: parent
-                text: "Pause"
-                baseColor: Constants.backgroundColor2
-                pressColor: Constants.textColor0
-            }
-
-            background: ToolButtonBackground {
-                anchors.fill: parent
-                control: parent
-                color: Constants.backgroundColor2
-            }
+        background: ToolButtonBackground {
+            anchors.fill: parent
+            control: parent
+            color: Constants.backgroundColor2
         }
+
+        onClicked: rootContext.mainViewRequiested()
     }
 
     Row {
         id: row
 
-        anchors.top: header.bottom
+        anchors.top: vmTile.bottom
         anchors.left: parent.left
         anchors.margins: 5
         spacing: 10
+        opacity: 0.0
 
 
         InfoTileItem {
@@ -90,4 +97,53 @@ Item {
             value: 0.4
         }
     }
+
+    //    Row {
+    //        anchors.right: parent.right
+    //        anchors.top: parent.top
+    //        anchors.margins: Constants.baseMargin
+
+    //        height: header.height
+    //        spacing: Constants.spacing
+
+    //        Button {
+    //            width: 100
+    //            height: 35
+
+    //            contentItem: ToolButtonContentItem {
+    //                anchors.fill: parent
+    //                control: parent
+    //                text: "Shutdown"
+    //                baseColor: Constants.backgroundColor2
+    //                pressColor: Constants.textColor0
+    //            }
+
+    //            background: ToolButtonBackground {
+    //                anchors.fill: parent
+    //                control: parent
+    //                color: Constants.backgroundColor2
+    //            }
+
+    ////            onClicked: rootContext.switchPower()
+    //        }
+
+    //        Button {
+    //            width: 100
+    //            height: 35
+
+    //            contentItem: ToolButtonContentItem {
+    //                anchors.fill: parent
+    //                control: parent
+    //                text: "Pause"
+    //                baseColor: Constants.backgroundColor2
+    //                pressColor: Constants.textColor0
+    //            }
+
+    //            background: ToolButtonBackground {
+    //                anchors.fill: parent
+    //                control: parent
+    //                color: Constants.backgroundColor2
+    //            }
+    //        }
+    //    }
 }
