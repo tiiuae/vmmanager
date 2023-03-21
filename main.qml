@@ -9,8 +9,8 @@ import ViewEnums 1.0
 ApplicationWindow {
     id: root
 
-    minimumWidth: 900
-    minimumHeight: 600
+    minimumWidth: Constants.minimumWindowWidth
+    minimumHeight: Constants.minimumWindowHeight
     visible: true
     flags: Qt.FramelessWindowHint | Qt.Window //|  Qt.CustomizeWindowHint
 

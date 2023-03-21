@@ -39,8 +39,8 @@ Rectangle {
 
             anchors.centerIn: parent
 
-            width: mouse.hovered? implicitWidth*1.2 : implicitWidth
-            height: mouse.hovered? implicitHeight*1.2 : implicitHeight
+            width: implicitWidth
+            height: implicitHeight
 
             Behavior on height {
                 NumberAnimation {duration: 200}
@@ -54,24 +54,13 @@ Rectangle {
         }
     }
 
-    Image {
-        id: safetyIcon
+    SafetyIndicator {
+        id: safetyIndicator
 
         anchors.top: parent.top
         anchors.left: appArea.right
         anchors.margins: Constants.spacing
-
-        source: {//add enum!
-            if (vmSafetyStatus === 0) {
-                return "/pic/no_risk"
-            }
-            if (vmSafetyStatus === 1) {
-                return "/pic/medium_risk"
-            }
-            if (vmSafetyStatus === 2) {
-                return "/pic/high_risk"
-            }
-        }
+        status: root.vmSafetyStatus
     }
 
     Label {

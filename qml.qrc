@@ -21,5 +21,8 @@
         <file>ButtonContentItem.qml</file>
         <file>ScreenBlur.qml</file>
         <file>TileItem.qml</file>
+        <file>Separator.qml</file>
+        <file>SafetyIndicator.qml</file>
+        <file>ProgressBarM.qml</file>
     </qresource>
 </RCC>

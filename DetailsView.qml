@@ -13,7 +13,7 @@ Item {
 
     function startMovement() {
         console.log("vmTile x,y:" + vmTile.x + ", " + vmTile.y)
-        row.opacity = 0.0
+        infoArea.opacity = 0.0
         vmTile.x = currentItem.x
         vmTile.y = currentItem.y
         appearingAnimation.start()
@@ -25,8 +25,8 @@ Item {
         vmName: currentItem ? currentItem.vmName : ""
         vmStatus: currentItem ? currentItem.vmStatus : ""
 
-//        x:  currentItem ? currentItem.x : 5
-//        y:  currentItem ? currentItem.y : 5
+        //        x:  currentItem ? currentItem.x : 5
+        //        y:  currentItem ? currentItem.y : 5
     }
 
     SequentialAnimation {
@@ -40,7 +40,7 @@ Item {
         }
 
         PropertyAnimation {
-            target: row
+            target: infoArea
             property: "opacity"
             to: 1.0
             duration: 400
@@ -50,8 +50,8 @@ Item {
     Button {
         id: closeButton
 
-        width: 35
-        height: 35
+        width:  Constants.secondaryHeaderHeight
+        height:  Constants.secondaryHeaderHeight
 
         anchors.right: parent.right
         anchors.top: parent.top
@@ -74,76 +74,115 @@ Item {
         onClicked: rootContext.mainViewRequiested()
     }
 
-    Row {
-        id: row
+    ColumnLayout {
+        id: infoArea
 
         anchors.top: vmTile.bottom
         anchors.left: parent.left
-        anchors.margins: 5
-        spacing: 10
+        anchors.margins: Constants.baseMargin * 4
+        spacing: Constants.spacing
         opacity: 0.0
 
+        Label {
+            id: infoSectionlabel
 
-        InfoTileItem {
-            text: "Memory used: 150MB"
-            value: 0.3
+            text: "Information"
+            font {
+                bold: true
+                //            pixelSize: Constants.mainFontSize
+            }
         }
-        InfoTileItem {
-            text: "CPU usage: 10%"
-            value: 0.1
+
+        Row {
+            id: row
+
+            spacing: 50
+
+            InfoTileItem {
+                text: "Memory used: 150MB"
+                value: 0.3
+            }
+            InfoTileItem {
+                text: "CPU usage: 10%"
+                value: 0.1
+            }
+            InfoTileItem {
+                text: "Network load: 40%"
+                value: 0.4
+            }
         }
-        InfoTileItem {
-            text: "Network load: 40%"
-            value: 0.4
+
+        Separator {}
+
+        Row {
+            Layout.preferredHeight: 40
+            spacing: Constants.spacing
+
+            SafetyIndicator {
+                status: currentItem ? currentItem.vmSafetyStatus : 0
+            }
+
+            Label {
+                text: {
+                    if (!currentItem)
+                        return ""
+                    if (currentItem.vmSafetyStatus === 0)
+                        return "No security threat!"
+                    if (currentItem.vmSafetyStatus === 1)
+                        return "Medium risk"
+                    if (currentItem.vmSafetyStatus === 2)
+                        return "High risk!"
+                }
+            }
         }
+
+        Separator {}
+
+        Row {
+            Layout.preferredHeight: 40
+            spacing: Constants.spacing
+
+            Button {
+                width: 100
+                height: 35
+
+                contentItem: ToolButtonContentItem {
+                    anchors.fill: parent
+                    control: parent
+                    text: "Shutdown"
+                    baseColor: Constants.backgroundColor2
+                    pressColor: Constants.textColor0
+                }
+
+                background: ToolButtonBackground {
+                    anchors.fill: parent
+                    control: parent
+                    color: Constants.backgroundColor2
+                }
+
+                //            onClicked: rootContext.switchPower()
+            }
+
+            Button {
+                width: 100
+                height: 35
+
+                contentItem: ToolButtonContentItem {
+                    anchors.fill: parent
+                    control: parent
+                    text: "Pause"
+                    baseColor: Constants.backgroundColor2
+                    pressColor: Constants.textColor0
+                }
+
+                background: ToolButtonBackground {
+                    anchors.fill: parent
+                    control: parent
+                    color: Constants.backgroundColor2
+                }
+            }
+        }
+
+        Separator {}
     }
-
-    //    Row {
-    //        anchors.right: parent.right
-    //        anchors.top: parent.top
-    //        anchors.margins: Constants.baseMargin
-
-    //        height: header.height
-    //        spacing: Constants.spacing
-
-    //        Button {
-    //            width: 100
-    //            height: 35
-
-    //            contentItem: ToolButtonContentItem {
-    //                anchors.fill: parent
-    //                control: parent
-    //                text: "Shutdown"
-    //                baseColor: Constants.backgroundColor2
-    //                pressColor: Constants.textColor0
-    //            }
-
-    //            background: ToolButtonBackground {
-    //                anchors.fill: parent
-    //                control: parent
-    //                color: Constants.backgroundColor2
-    //            }
-
-    ////            onClicked: rootContext.switchPower()
-    //        }
-
-    //        Button {
-    //            width: 100
-    //            height: 35
-
-    //            contentItem: ToolButtonContentItem {
-    //                anchors.fill: parent
-    //                control: parent
-    //                text: "Pause"
-    //                baseColor: Constants.backgroundColor2
-    //                pressColor: Constants.textColor0
-    //            }
-
-    //            background: ToolButtonBackground {
-    //                anchors.fill: parent
-    //                control: parent
-    //                color: Constants.backgroundColor2
-    //            }
-    //        }
-    //    }
 }

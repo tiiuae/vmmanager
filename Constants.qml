@@ -3,6 +3,8 @@ import QtQuick 2.15
 
 QtObject {
     //sizes
+    readonly property int minimumWindowWidth: 900
+    readonly property int minimumWindowHeight: 600
     readonly property int toolButtonSize: 50
     readonly property int secondaryHeaderHeight: 35
 

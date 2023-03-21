@@ -5,14 +5,16 @@ Rectangle {
     id: root
 
     property alias text: label.text
-    property alias value: progressCircle.value
+    property alias value: progressBar.value
 
-    width: 200
-    height: 200
-    border {
-        width: 2
-        color: Constants.backgroundColor1
-    }
+    width: progressBar.width
+    height: progressBar.height + label.height + Constants.baseMargin*3
+
+//    border {
+//        width: 2
+//        color: Constants.backgroundColor1
+//    }
+
     color: Constants.backgroundColor0
 
     Label {
@@ -23,16 +25,24 @@ Rectangle {
         anchors.margins: 5
     }
 
-    ProgressCircle {
-        id: progressCircle
+    ProgressBarM {
+        id: progressBar
 
         anchors.top: label.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.margins: 5
-
-        lineWidth: 10
-        size: 150
-        secondaryColor: Constants.backgroundColor1
-        primaryColor: Constants.graphColor
     }
+
+//    ProgressCircle {
+//        id: progressCircle
+
+//        anchors.top: label.bottom
+//        anchors.horizontalCenter: parent.horizontalCenter
+//        anchors.margins: 5
+
+//        lineWidth: 10
+//        size: 150
+//        secondaryColor: Constants.backgroundColor1
+//        primaryColor: Constants.iconBackground
+//    }
 }
