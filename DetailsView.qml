@@ -19,7 +19,7 @@ Item {
         appearingAnimation.start()
     }
 
-    TileItemDelegate {
+    TileItem {
         id: vmTile
 
         vmName: currentItem ? currentItem.vmName : ""

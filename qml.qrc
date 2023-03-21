@@ -20,5 +20,6 @@
         <file>ButtonBackground.qml</file>
         <file>ButtonContentItem.qml</file>
         <file>ScreenBlur.qml</file>
+        <file>TileItem.qml</file>
     </qresource>
 </RCC>
