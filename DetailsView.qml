@@ -14,8 +14,9 @@ Item {
     function startMovement() {
         console.log("vmTile x,y:" + vmTile.x + ", " + vmTile.y)
         infoArea.opacity = 0.0
-        vmTile.x = currentItem.x
-        vmTile.y = currentItem.y
+        vmTile.x = currentItem.x >= Constants.baseMargin ? currentItem.x : Constants.baseMargin
+        vmTile.y = currentItem.y >= Constants.baseMargin ? currentItem.y : Constants.baseMargin
+        //do not start animation if x,y === Constants.baseMargin ? it looks like a delay
         appearingAnimation.start()
     }
 
@@ -24,9 +25,6 @@ Item {
 
         vmName: currentItem ? currentItem.vmName : ""
         vmStatus: currentItem ? currentItem.vmStatus : ""
-
-        //        x:  currentItem ? currentItem.x : 5
-        //        y:  currentItem ? currentItem.y : 5
     }
 
     SequentialAnimation {
@@ -35,7 +33,7 @@ Item {
         PropertyAnimation {
             target: vmTile
             properties: "x,y"
-            to: 5
+            to: Constants.baseMargin
             duration: 400
         }
 
