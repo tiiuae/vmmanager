@@ -16,6 +16,27 @@ TileItem {
         samples: 9
     }
 
+    Button {
+        id: detailsButton
+
+        width: 30
+        height: width
+
+        anchors.top: parent.top
+        anchors.right: parent.right
+
+        background: Rectangle {
+            anchors.fill: parent
+            color: "transparent"
+        }
+
+        contentItem: ButtonContentItem {
+            image: "/pic/dots_h"
+            anchors.fill: parent
+            control: parent
+        }
+    }
+
     TileMenu {
         id: menu
 

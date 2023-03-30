@@ -135,6 +135,8 @@ ApplicationWindow {
     GeneralMenu {
         id: generalMenu
 
+//        visible: rootContext.currentPage === Views.GeneralSettings
+
         x: menuButton.x + menuButton.width/2 - getPointerX()
         y: toolBar.y + toolBar.height
         width: 200

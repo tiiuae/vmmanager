@@ -39,8 +39,18 @@ Item {
         source: "/pic/lock"
 
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: passwordInput.top
+        anchors.bottom: tipLabel.top
         anchors.margins: Constants.baseMargin * 3
+    }
+
+    Label {
+        id: tipLabel
+
+        anchors.margins: Constants.baseMargin
+        anchors.bottom: passwordInput.top
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        text: "Enter your password below"
     }
 
     TextField {
@@ -89,6 +99,6 @@ Item {
             color: loginButton.pressed ?  Constants.backgroundColor1 : Constants.barColor
         }
 
-        onClicked: rootContext.mainViewRequiested()
+        onClicked: rootContext.loginRequest(passwordInput.text)
     }
 }

@@ -14,7 +14,7 @@ Rectangle {
 
     color: Constants.backgroundColor0
 
-//    layer.enabled: !menu.visible
+//    layer.enabled: true
 //    layer.effect: DropShadow {
 //        transparentBorder: true
 //        horizontalOffset: 2
@@ -88,27 +88,6 @@ Rectangle {
         height: 25
         font.pixelSize: 18
         color: Constants.textColor1
-    }
-
-    Button {
-        id: detailsButton
-
-        width: 30
-        height: width
-
-        anchors.top: parent.top
-        anchors.right: parent.right
-
-        background: Rectangle {
-            anchors.fill: parent
-            color: "transparent"
-        }
-
-        contentItem: ButtonContentItem {
-            image: "/pic/dots_h"
-            anchors.fill: parent
-            control: parent
-        }
     }
 }
 

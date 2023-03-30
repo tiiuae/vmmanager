@@ -12,5 +12,7 @@
         <file alias="pause">pictures/Pause negative.svg</file>
         <file alias="dots_v">pictures/3 dots vertical negative.svg</file>
         <file alias="dots_h">pictures/3 dots horizontal.svg</file>
+        <file alias="ghaf-sign">pictures/Chaf.svg</file>
+        <file alias="ghaf-text">pictures/GHAF.svg</file>
     </qresource>
 </RCC>
