@@ -23,5 +23,6 @@
         <file>Separator.qml</file>
         <file>SafetyIndicator.qml</file>
         <file>ProgressBarM.qml</file>
+        <file>LoginPhoneView.qml</file>
     </qresource>
 </RCC>
