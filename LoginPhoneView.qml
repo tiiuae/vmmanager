@@ -5,6 +5,12 @@ import QtQuick.Layouts 1.15
 Item {
     id: root
 
+    QtObject {
+        id: internal
+
+        property bool pinVisible: false
+    }
+
     Image {
         id: ghafImage
 
@@ -45,7 +51,7 @@ Item {
         anchors.top: tipLabel.bottom
         anchors.margins: Constants.baseMargin *5
         anchors.horizontalCenter: parent.horizontalCenter
-        spacing: Constants.spacing
+        spacing: Constants.spacing*2
 
         Label {
             id: tipLabel2
@@ -53,45 +59,35 @@ Item {
             text: "Enter your number below"
         }
 
-        Row {
-            spacing: Constants.spacing
-            width: 240
-            height: 30
+        PhoneInput {
+            id: phoneInput
 
-            TextField {
-                id: numberInput
+            visible: !internal.pinVisible
 
-                width: 65
-                height: 30
-                color: Constants.textColor1
+            onAccepted: {
 
-                text: "+358"
-                readOnly: true
-
-                background: Rectangle {
-                    anchors.fill: parent
-                    color: Constants.backgroundColor3
-                }
             }
+        }
 
-            TextField {
-                id: numberInput2
+        PinInput {
+            id: pinInput
 
-                width: 170
-                height: 30
-                color: Constants.textColor1
+            visible: internal.pinVisible
 
-                inputMethodHints: Qt.ImhDigitsOnly
-                maximumLength: 9
+            onAccepted: {
 
-                background: Rectangle {
-                    anchors.fill: parent
-                    color: Constants.backgroundColor3
-                }
-
-                onAccepted: {
-                }
             }
+        }
+
+        Label {
+            id: tipLabel3
+
+            text: "You'll recieve SMS with one-time PIN"
+        }
+
+        SwitchButton {
+            text: "Keep me logged in"
+            visible: !internal.pinVisible
         }
     }
 
@@ -99,7 +95,7 @@ Item {
         id: loginButton
 
         width: 240
-        height:  30
+        height: 30
 
         anchors.horizontalCenter: phoneInputLayout.horizontalCenter
         anchors.top: phoneInputLayout.bottom
@@ -118,7 +114,11 @@ Item {
             color: loginButton.pressed ?  Constants.backgroundColor1 : Constants.barColor
         }
 
-        //        onClicked: rootContext.loginRequest(passwordInput.text)
+                onClicked: {
+                    //some animation?
+                    //rootContext.loginRequest(passwordInput.text)
+                    internal.pinVisible = !internal.pinVisible
+                }
     }
 
 }

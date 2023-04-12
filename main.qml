@@ -205,7 +205,7 @@ ApplicationWindow {
     }
 
     //login view
-    LoginView {
+    LoginPhoneView {
         anchors.fill: parent
         visible: rootContext.currentPage === Views.LoginView
     }

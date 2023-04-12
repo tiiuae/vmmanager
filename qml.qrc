@@ -24,5 +24,8 @@
         <file>SafetyIndicator.qml</file>
         <file>ProgressBarM.qml</file>
         <file>LoginPhoneView.qml</file>
+        <file>SwitchButton.qml</file>
+        <file>PhoneInput.qml</file>
+        <file>PinInput.qml</file>
     </qresource>
 </RCC>
