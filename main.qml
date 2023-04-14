@@ -204,10 +204,15 @@ ApplicationWindow {
         }
     }
 
-    //login view
-    LoginPhoneView {
+    //login views
+    LoginView {
         anchors.fill: parent
         visible: rootContext.currentPage === Views.LoginView
+    }
+
+    LoginPhoneView {
+        anchors.fill: parent
+        visible: rootContext.currentPage === Views.LoginPhoneView
     }
 
     //general settings view

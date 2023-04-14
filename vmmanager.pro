@@ -8,6 +8,7 @@ SOURCES += \
         datasource.cpp \
         main.cpp \
         rootcontext.cpp \
+        user.cpp \
         vmdatamodel.cpp
 
 RESOURCES += qml.qrc \
@@ -29,4 +30,5 @@ DISTFILES +=
 HEADERS += \
     datasource.h \
     rootcontext.h \
+    user.h \
     vmdatamodel.h

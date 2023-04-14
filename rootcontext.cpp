@@ -6,6 +6,7 @@
 #include <string>
 #include <array>
 #include <QDebug>
+#include "user.h"
 
 /*
     Now there is no clear way to get the VM info, but probably it will be provided by some command line utils.
@@ -34,15 +35,29 @@ void RootContext::detailsRequested()
 
 void RootContext::settingsRequiested()
 {
-    m_currentView = Views::LoginView;
+    if (User::instance()->isLoggedIn())
+        m_currentView = Views::GeneralSettings;
+    else
+    {
+        requestedView = Views::GeneralSettings;
+        if (User::instance()->hasName())
+            m_currentView = Views::LoginView;
+
+        else
+            m_currentView = Views::LoginPhoneView;
+    }
+
     emit currentViewChanged();
 }
 
 void RootContext::loginRequest(const QString &passwd)
 {
-    //if login ok - display settings
-    m_currentView = Views::GeneralSettings;
-    emit currentViewChanged();
+    if (User::instance()->validate(passwd))
+    {
+        m_currentView = requestedView;
+        emit currentViewChanged();
+    }
+    //else
 }
 
 void RootContext::updateModel()
@@ -67,9 +82,9 @@ void RootContext::switchPower(bool on, QString name)
 {
     qDebug() << on << name;
 
-//    if (on)
-//        execCommand("vm-start");
-//    else
+    //    if (on)
+    //        execCommand("vm-start");
+    //    else
     //        execCommand("vm-stop");
 }
 

@@ -12,9 +12,11 @@ public:
     enum Views
     {
         MainVMView = 0,
-        DetailsView = 1,
-        GeneralSettings = 2,
-        LoginView = 3
+        DetailsView ,
+        GeneralSettings,
+        LoginView,
+        LoginPhoneView ,
+        LoginPinView
     };
     Q_ENUM(Views)
 
@@ -50,6 +52,7 @@ signals:
 
 private:
     int m_currentView = Views::MainVMView;
+    int requestedView = Views::MainVMView;
     VMDataModel mVMDataModel;
     QString execCommand(const char * cmd);
 };
