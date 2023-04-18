@@ -60,6 +60,18 @@ void RootContext::loginRequest(const QString &passwd)
     //else
 }
 
+void RootContext::pinRequest(const QString &number)
+{
+    m_currentView = Views::LoginPinView;
+    emit currentViewChanged();
+}
+
+void RootContext::pinSubmit(const QString &code)
+{
+    m_currentView = requestedView;
+    emit currentViewChanged();
+}
+
 void RootContext::updateModel()
 {
     if(mVMDataModel.rowCount(QModelIndex()) > 0)

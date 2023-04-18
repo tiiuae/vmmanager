@@ -22,8 +22,8 @@ public:
     const QString &getName() const;
     void setName(const QString &newName);
 
-    bool isLoggedIn() {return loggedIn;};
-    bool hasName() {return !name.isEmpty();}
+    bool isLoggedIn() { return loggedIn; };
+    bool hasName() { return !name.isEmpty(); }
     bool validate(const QString & _password);
     bool validate(const QString & _name, const QString & _password);
 };

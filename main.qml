@@ -12,7 +12,7 @@ ApplicationWindow {
     minimumWidth: Constants.minimumWindowWidth
     minimumHeight: Constants.minimumWindowHeight
     visible: true
-    flags: Qt.FramelessWindowHint | Qt.Window //|  Qt.CustomizeWindowHint
+    flags: Qt.FramelessWindowHint | Qt.Window
 
     //! Changing size of frameless window
     //! TO FIX: MouseArea covers ToolBar
@@ -212,7 +212,11 @@ ApplicationWindow {
 
     LoginPhoneView {
         anchors.fill: parent
+
         visible: rootContext.currentPage === Views.LoginPhoneView
+                 || rootContext.currentPage === Views.LoginPinView
+
+        pinVisible: rootContext.currentPage === Views.LoginPinView
     }
 
     //general settings view

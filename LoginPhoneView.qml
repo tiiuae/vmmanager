@@ -5,11 +5,7 @@ import QtQuick.Layouts 1.15
 Item {
     id: root
 
-    QtObject {
-        id: internal
-
-        property bool pinVisible: false
-    }
+    property bool pinVisible: false
 
     Image {
         id: ghafImage
@@ -62,7 +58,7 @@ Item {
         PhoneInput {
             id: phoneInput
 
-            visible: !internal.pinVisible
+            visible: !pinVisible
 
             onAccepted: {
 
@@ -72,7 +68,7 @@ Item {
         PinInput {
             id: pinInput
 
-            visible: internal.pinVisible
+            visible: pinVisible
 
             onAccepted: {
 
@@ -87,7 +83,7 @@ Item {
 
         SwitchButton {
             text: "Keep me logged in"
-            visible: !internal.pinVisible
+            visible: !pinVisible
         }
     }
 
@@ -114,11 +110,15 @@ Item {
             color: loginButton.pressed ?  Constants.backgroundColor1 : Constants.barColor
         }
 
-                onClicked: {
-                    //some animation?
-                    //rootContext.loginRequest(passwordInput.text)
-                    internal.pinVisible = !internal.pinVisible
-                }
+        onClicked: {
+            if (pinVisible) {
+                rootContext.pinSubmit(pinInput.pin)
+            }
+            else {
+                rootContext.pinRequest(phoneInput.phoneNumber)
+            }
+//            pinVisible = !pinVisible//for test
+        }
     }
 
 }
