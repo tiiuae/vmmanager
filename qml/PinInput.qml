@@ -13,7 +13,7 @@ Item {
                 + pinDigit3.displayText + pinDigit4.displayText)
     }
 
-    signal accepted()//?
+    signal accepted()
 
     Row {
         spacing: Constants.spacing*3

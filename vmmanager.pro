@@ -2,7 +2,6 @@ QT += qml quick core
 
 SOURCES += \
         datasource.cpp \
-        #example.cpp \
         main.cpp \
         rootcontext.cpp \
         user.cpp \
@@ -27,7 +26,8 @@ DISTFILES +=
 
 HEADERS += \
     datasource.h \
-    #example.h \
     rootcontext.h \
     user.h \
     vmdatamodel.h
+
+DEFINES += DESKTOP#TABLET
