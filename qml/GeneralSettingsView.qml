@@ -90,6 +90,10 @@ Item {
 
         Separator {}
 
+        Row {
+
+        }
+
         Separator {}
 
     }

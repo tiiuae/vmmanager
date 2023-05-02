@@ -20,6 +20,7 @@ QtObject {
     readonly property int delegateFontSize: 20
     readonly property int mainFontSize: 22
     readonly property int largeFontSize: 30
+    readonly property int pinFontSize: 24
 
     //colors
     readonly property color baseColor0: "#95ADB6"
