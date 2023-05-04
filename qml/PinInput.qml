@@ -30,24 +30,8 @@ Item {
         spacing: Constants.spacing*3
         anchors.centerIn: parent
 
-        TextField {
+        PinInputField {
             id: pinDigit1
-
-            width: 40
-            height: width
-            color: Constants.textColor1
-
-            inputMethodHints: Qt.ImhDigitsOnly
-            maximumLength: 1
-            horizontalAlignment: Qt.AlignHCenter
-            font.pixelSize: Constants.pinFontSize
-
-            background: Rectangle {
-                anchors.fill: parent
-                color: Constants.backgroundColor3
-            }
-
-            cursorDelegate: Item {}//to hide cursor/caret
 
             onTextChanged: {
                 if(pinDigit1.text.length != 0) {
@@ -68,24 +52,8 @@ Item {
             }
         }
 
-        TextField {
+        PinInputField {
             id: pinDigit2
-
-            width: 40
-            height: width
-            color: Constants.textColor1
-
-            inputMethodHints: Qt.ImhDigitsOnly
-            maximumLength: 1
-            horizontalAlignment: Qt.AlignHCenter
-            font.pixelSize: Constants.pinFontSize
-
-            background: Rectangle {
-                anchors.fill: parent
-                color: Constants.backgroundColor3
-            }
-
-            cursorDelegate: Item {}
 
             onTextChanged: {
                 if(pinDigit2.text.length != 0) {
@@ -112,24 +80,8 @@ Item {
             }
         }
 
-        TextField {
+        PinInputField {
             id: pinDigit3
-
-            width: 40
-            height: width
-            color: Constants.textColor1
-
-            inputMethodHints: Qt.ImhDigitsOnly
-            maximumLength: 1
-            horizontalAlignment: Qt.AlignHCenter
-            font.pixelSize: Constants.pinFontSize
-
-            background: Rectangle {
-                anchors.fill: parent
-                color: Constants.backgroundColor3
-            }
-
-            cursorDelegate: Item {}
 
             onTextChanged: {
                 if(pinDigit3.text.length != 0) {
@@ -156,24 +108,8 @@ Item {
             }
         }
 
-        TextField {
+        PinInputField {
             id: pinDigit4
-
-            width: 40
-            height: width
-            color: Constants.textColor1
-
-            inputMethodHints: Qt.ImhDigitsOnly
-            maximumLength: 1
-            horizontalAlignment: Qt.AlignHCenter
-            font.pixelSize: Constants.pinFontSize
-
-            background: Rectangle {
-                anchors.fill: parent
-                color: Constants.backgroundColor3
-            }
-
-            cursorDelegate: Item {}
 
             Keys.onPressed: {
                 if(event.key === Qt.Key_Backspace) {

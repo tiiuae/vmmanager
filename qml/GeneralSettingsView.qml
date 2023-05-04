@@ -54,6 +54,7 @@ Item {
     ColumnLayout {
         id: infoArea
 
+        width: parent.width
         anchors.top: ghafLabel.bottom
         anchors.left: parent.left
         anchors.margins: Constants.baseMargin * 4
@@ -90,11 +91,129 @@ Item {
 
         Separator {}
 
-        Row {
 
+        Item {
+
+            width: infoArea.width
+            height: 45
+
+            Separator {//must be under tabbar
+                anchors.bottom: bar.bottom
+            }
+
+            TabBar {
+                id: bar
+
+                contentWidth: infoArea.width
+                contentHeight: 40
+
+                background: Rectangle {
+                    anchors.fill: parent
+                    color: "transparent"
+                }
+
+                TabButtonM {
+                    text: "Software update"
+                    bottomLineVisible: bar.currentIndex == TabBar.index
+                }
+                TabButtonM {
+                    text: "Backup"
+                    bottomLineVisible: bar.currentIndex == TabBar.index
+                }
+                TabButtonM {
+                    text: "Reset"
+                    bottomLineVisible: bar.currentIndex == TabBar.index
+                }
+                TabButtonM {
+                    text: "Provisioning"
+                    bottomLineVisible: bar.currentIndex == TabBar.index
+                }
+                TabButtonM {
+                    text: "System status"
+                    bottomLineVisible: bar.currentIndex == TabBar.index
+                }
+            }
+
+            StackLayout {
+                id: actionsView
+
+                anchors.top: bar.bottom
+                anchors.margins: Constants.baseMargin
+                width: infoArea.width
+
+                currentIndex: bar.currentIndex
+
+                Item {
+                    id: page1
+
+                    width: parent.width
+
+                    Column {
+                        width: parent.width
+
+                        Button {
+                            width: 100
+                            height: 35
+                            text: "Update"
+                            icon.source: "/pic/update"
+
+                            background: ToolButtonBackground {
+                                anchors.fill: parent
+                                control: parent
+                            }
+                        }
+                        Button {
+                            width: 150
+                            height: 35
+                            text: "Version: 0.9"
+                            icon.source: "/pic/settings"
+
+                            background: ToolButtonBackground {
+                                anchors.fill: parent
+                                control: parent
+                            }
+                        }
+                    }
+                }
+
+                Item {
+                    id: page2
+
+                    width: parent.width
+
+                    Button {
+                        width: 120
+                        height: 35
+                        text: "Placeholder"
+                        icon.source: "/pic/settings"
+
+                        background: ToolButtonBackground {
+                            anchors.fill: parent
+                            control: parent
+                        }
+                    }
+
+                }
+
+                Item {
+                    id: page3
+
+                    width: parent.width
+                }
+
+                Item {
+                    id: page4
+
+                    width: parent.width
+                }
+
+                Item {
+                    id: page5
+
+                    width: parent.width
+                }
+            }
         }
-
-        Separator {}
-
     }
+
 }

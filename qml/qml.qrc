@@ -27,5 +27,7 @@
         <file>SwitchButton.qml</file>
         <file>PhoneInput.qml</file>
         <file>PinInput.qml</file>
+        <file>PinInputField.qml</file>
+        <file>TabButtonM.qml</file>
     </qresource>
 </RCC>
