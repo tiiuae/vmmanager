@@ -2,9 +2,7 @@
 #define DATASOURCE_H
 
 #include <QObject>
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QNetworkRequest>
+#include "vmdatamodel.h"
 #include "user.h"
 
 class DataSource : public QObject
@@ -13,19 +11,19 @@ class DataSource : public QObject
 public:
     explicit DataSource(QObject *parent = nullptr);
 
-    bool request();
+    VMDataModel * getVMDataModel() { return &mVMDataModel; }
 
-signals:
-    void resultReady(QMap<int, QString> values);//test
-
-private slots:
-    void readReply();
-    void finishReplyReading();
+    Q_INVOKABLE void loginRequest(const QString &passwd);
+    Q_INVOKABLE void pinRequest(const QString &number);
+    Q_INVOKABLE void pinSubmit(const QString &code);
+    Q_INVOKABLE void updateModel();
+    Q_INVOKABLE void switchPower(bool on, QString name);
+    Q_INVOKABLE void saveSettings(/*???*/);
 
 private:
-    QNetworkAccessManager * networkManager;
-    QNetworkReply * networkReply;
-    QByteArray buffer;
+    VMDataModel mVMDataModel;
+
+    QString execCommand(const char * cmd);
 };
 
 #endif // DATASOURCE_H

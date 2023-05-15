@@ -25,12 +25,13 @@ Rectangle {
 
         ActionButton {
             image: "/pic/power"
-//            onClicked: rootContext.switchPower(!internal.powerOn, vmName) + rootContext.update() ?
+            onClicked: rootContext.switchPower(!internal.powerOn, vmName) //+ rootContext.update() ?
         }
         ActionButton {
             image: "/pic/pause"
             visible: internal.powerOn
-//            onClicked: rootContext.switchPower(!internal.powerOn, vmName) + rootContext.update() ?
+            //this functionality has not been discussed yet
+//            onClicked: rootContext.switchPower(!internal.powerOn, vmName)// + rootContext.update() ?
         }
         ActionButton {
             image: "/pic/settings"

@@ -2,7 +2,7 @@
 #define ROOTCONTEXT_H
 
 #include <QObject>
-#include "vmdatamodel.h"
+#include "datasource.h"
 
 class EnumClass : public QObject
 {
@@ -34,7 +34,7 @@ class RootContext : public QObject
 public:
     RootContext();
 
-    VMDataModel * getVMDataModel() { return &mVMDataModel; }
+    VMDataModel * getVMDataModel() { return dataSource.getVMDataModel(); }
 
     Q_INVOKABLE void mainViewRequiested();
     Q_INVOKABLE void settingsRequiested();
@@ -55,8 +55,7 @@ signals:
 private:
     int m_currentView = Views::MainVMView;
     int requestedView = Views::MainVMView;
-    VMDataModel mVMDataModel;
-    QString execCommand(const char * cmd);
+    DataSource dataSource;
 };
 
 #endif // ROOTCONTEXT_H

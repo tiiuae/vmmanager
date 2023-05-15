@@ -3,75 +3,78 @@
 #include <QJsonParseError>
 #include <QJsonArray>
 
-//Just to recall the stuff - request to get smth from free API
+/*
+    The VM info will be provided by command line util vmd-cli.
+
+    For testing purposes the test.txt file is used. This file must be in the same directory as executable file.
+    The template is shown below:
+    <VM_name> <status>
+*/
 
 DataSource::DataSource(QObject *parent)
     : QObject{parent}
 {
-    networkManager = new QNetworkAccessManager(this);
 }
 
-//! According to API spec: 1 - requiest the VM's list, 2 - get info about VM by id
-
-bool DataSource::request()
+//TODO: login mechanism
+void DataSource::loginRequest(const QString &passwd)
 {
-    //create request
-    QNetworkRequest request = QNetworkRequest(QUrl("https://api.restful-api.dev/objects"));//list of devices, test
-
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-
-    networkReply = networkManager->get(request);
-
-    connect(networkReply, &QNetworkReply::readyRead, this, &DataSource::readReply);
-    connect(networkReply, &QNetworkReply::finished, this, &DataSource::finishReplyReading);
-
-    return true;
+    Q_UNUSED(passwd)
 }
 
-void DataSource::readReply()
+void DataSource::pinRequest(const QString &number)
 {
-    qDebug() << "Data came to slot";
-    buffer.append(networkReply->readAll());
+    Q_UNUSED(number)
 }
 
-void DataSource::finishReplyReading()
+void DataSource::pinSubmit(const QString &code)
 {
-    if(networkReply->error() != QNetworkReply::NoError)
-    {
-        qDebug() << "Error : " << networkReply->errorString();
+    Q_UNUSED(code)
+}
+///////////////////////////////////////////////////////
+
+void DataSource::updateModel()
+{
+    if(mVMDataModel.rowCount(QModelIndex()) > 0)
+        mVMDataModel.clear();
+
+    //run vmd-client-cli --json
+    QString vmInfo = execCommand("cat test.txt");
+    vmInfo = vmInfo.trimmed();//simplified()?
+
+    //parse the execution result and add to the model
+    QTextStream stream (&vmInfo, QIODevice::ReadOnly);
+    while(!stream.atEnd()) {
+        QString temp1, temp2;
+        stream >> temp1 >> temp2;
+        mVMDataModel.addData(Parameter(temp1, temp2));
     }
-    else
-    {
-        //retrieve data from buffer and parse it
-        QMap<int,QString> result;
-        QJsonParseError error;
-        QJsonDocument doc = QJsonDocument::fromJson(buffer, &error);
-        if (error.error != QJsonParseError::NoError)
-        {
-            qDebug() << error.errorString();
-        }
-        if (doc.isArray())
-        {
+}
 
-            QJsonArray array = doc.array();
+void DataSource::switchPower(bool on, QString name)
+{
+    QString command = QString("vmd-client-cli ") + (on? QString(" start ") : QString(" stop ")) + name;
+    qDebug() << execCommand(command.toLocal8Bit().data());
+}
 
-            foreach (const QJsonValue & v, array)
-            {
-                QJsonObject obj = v.toObject();
-                int id = obj.value("id").toString().toInt();
-                QString name = obj.value("name").toString();
-                result.insert(id, name);
+void DataSource::saveSettings()
+{
 
-                qDebug() << id << name;
-            }
-        }
+}
 
-        //then empty the buffer
-        qDebug() << "Data buffer \n" << buffer;
-        buffer.clear();
 
-        emit resultReady(result);
+QString DataSource::execCommand(const char *cmd)
+{
+    std::array<char, 128> buffer;
+    std::string result;
+    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd, "r"), pclose);
+    if (!pipe) {
+        throw std::runtime_error("popen() failed!");
+    }
+    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+        result += buffer.data();
     }
 
-    networkReply->deleteLater();
+    return QString::fromStdString(result);
 }
+
