@@ -4,7 +4,7 @@ import QtQuick.Controls 2.15
 TabButton {
     id: root
 
-    property alias bottomLineVisible: bottomLine.visible
+    property bool bottomLineVisible: false
 
     width: 120
     height: 40
@@ -32,6 +32,11 @@ TabButton {
             width: parent.width
             height: 3
             color: Constants.iconBackground
+            opacity: bottomLineVisible ? 1.0 : 0.0
+
+            Behavior on opacity {
+                NumberAnimation {duration: 300;}
+            }
         }
     }
 }
