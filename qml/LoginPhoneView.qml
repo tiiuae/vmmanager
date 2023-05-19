@@ -121,4 +121,11 @@ Item {
         }
     }
 
+    Connections {
+        target: rootContext
+        function onPinResult(result) {
+            console.debug("pin result recieved " + result)
+            pinInput.highlighted = !result
+        }
+    }
 }

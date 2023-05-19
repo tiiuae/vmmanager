@@ -57,6 +57,7 @@ void RootContext::pinRequest(const QString &number)
     m_currentView = Views::LoginPinView;
     dataSource.pinRequest(number);
     emit currentViewChanged();
+//        emit pinResult(false);
 }
 
 void RootContext::pinSubmit(const QString &code)
@@ -65,6 +66,7 @@ void RootContext::pinSubmit(const QString &code)
     //if succesfull - get the requrested view
     m_currentView = requestedView;
     emit currentViewChanged();
+//        emit pinResult(false);
 }
 
 void RootContext::updateModel()

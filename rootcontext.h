@@ -51,6 +51,7 @@ public:
 
 signals:
     void currentViewChanged();
+    void pinResult(bool value);
 
 private:
     int m_currentView = Views::MainVMView;

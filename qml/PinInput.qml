@@ -5,12 +5,16 @@ import QtQuick.Layouts 1.15
 Item {
     id: root
 
-    width: 240
-    height: 40
+    property bool highlighted: false
 
     property string pin:  {
         return (pinDigit1.displayText + pinDigit2.displayText
                 + pinDigit3.displayText + pinDigit4.displayText)
+    }
+
+    onHighlightedChanged: {
+        if(highlighted)
+            highlightTimer.start()
     }
 
     onVisibleChanged: {
@@ -26,12 +30,25 @@ Item {
 
     signal accepted()
 
+    width: 240
+    height: 40
+
+    Timer {
+        id: highlightTimer
+
+        interval: 1500
+        repeat: false
+        onTriggered: highlighted = false
+    }
+
     Row {
         spacing: Constants.spacing*3
         anchors.centerIn: parent
 
         PinInputField {
             id: pinDigit1
+
+            highlighted: root.highlighted
 
             onTextChanged: {
                 if(pinDigit1.text.length != 0) {
@@ -54,6 +71,8 @@ Item {
 
         PinInputField {
             id: pinDigit2
+
+            highlighted: root.highlighted
 
             onTextChanged: {
                 if(pinDigit2.text.length != 0) {
@@ -83,6 +102,8 @@ Item {
         PinInputField {
             id: pinDigit3
 
+            highlighted: root.highlighted
+
             onTextChanged: {
                 if(pinDigit3.text.length != 0) {
                     pinDigit4.focus = true
@@ -110,6 +131,8 @@ Item {
 
         PinInputField {
             id: pinDigit4
+
+            highlighted: root.highlighted
 
             Keys.onPressed: {
                 if(event.key === Qt.Key_Backspace) {
