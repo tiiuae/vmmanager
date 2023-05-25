@@ -19,6 +19,10 @@ Switch {
             height: 26
             radius: 13
             color: control.down ? Constants.iconBackground : Constants.textColor0
+
+            Behavior on x {
+                NumberAnimation { duration: 200; }
+            }
         }
     }
 
