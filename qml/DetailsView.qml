@@ -6,16 +6,29 @@ import QtQuick.Layouts 1.15
 Item {
     id: root
 
-    property Item currentItem: null
+    QtObject {
+        id: internal
 
-    //way to send response!
-    //command with id/name
+        property int gridItemX: 0
+        property int gridItemY: 0
+        property string vmName: ""
+        property string vmStatus: ""
+        property int vmSafetyStatus: 0
+
+    }
+
+    function initialize(currentItem) {
+        internal.gridItemX = currentItem.x
+        internal.gridItemY = currentItem.y
+        internal.vmName = currentItem.vmName
+        internal.vmStatus = currentItem.vmStatus
+    }
 
     function startMovement() {
         console.log("vmTile x,y:" + vmTile.x + ", " + vmTile.y)
         infoArea.opacity = 0.0
-        vmTile.x = currentItem.x >= Constants.baseMargin ? currentItem.x : Constants.baseMargin
-        vmTile.y = currentItem.y >= Constants.baseMargin ? currentItem.y : Constants.baseMargin
+        vmTile.x = internal.gridItemX >= Constants.baseMargin ? internal.gridItemX : Constants.baseMargin
+        vmTile.y = internal.gridItemY >= Constants.baseMargin ? internal.gridItemY : Constants.baseMargin
         //do not start animation if x,y === Constants.baseMargin ? it looks like a delay
         appearingAnimation.start()
     }
@@ -23,8 +36,8 @@ Item {
     TileItem {
         id: vmTile
 
-        vmName: currentItem ? currentItem.vmName : ""
-        vmStatus: currentItem ? currentItem.vmStatus : ""
+        vmName: internal.vmName
+        vmStatus: internal.vmStatus
     }
 
     SequentialAnimation {
@@ -117,18 +130,16 @@ Item {
             spacing: Constants.spacing
 
             SafetyIndicator {
-                status: currentItem ? currentItem.vmSafetyStatus : 0
+                status: internal.vmSafetyStatus
             }
 
             Label {
                 text: {
-                    if (!currentItem)
-                        return ""
-                    if (currentItem.vmSafetyStatus === 0)
+                    if (internal.vmSafetyStatus === 0)
                         return "No security threat!"
-                    if (currentItem.vmSafetyStatus === 1)
+                    if (internal.vmSafetyStatus === 1)
                         return "Medium risk"
-                    if (currentItem.vmSafetyStatus === 2)
+                    if (internal.vmSafetyStatus === 2)
                         return "High risk!"
                 }
             }
@@ -158,7 +169,7 @@ Item {
                     color: Constants.backgroundColor2
                 }
 
-                //            onClicked: rootContext.switchPower()
+                onClicked: rootContext.switchPower(false, internal.vmName)
             }
 
             Button {
@@ -178,6 +189,8 @@ Item {
                     control: parent
                     color: Constants.backgroundColor2
                 }
+
+//                onClicked: rootContext.switchPower(?) //no such functionality
             }
         }
 

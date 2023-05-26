@@ -135,8 +135,6 @@ ApplicationWindow {
     GeneralMenu {
         id: generalMenu
 
-//        visible: rootContext.currentPage === Views.GeneralSettings
-
         x: menuButton.x + menuButton.width/2 - getPointerX()
         y: toolBar.y + toolBar.height
         width: 200
@@ -196,9 +194,9 @@ ApplicationWindow {
 
         onVisibleChanged: {
             if (visible) {
-                //then update properties
+                //then update properties by initializing the internal fields of DetailsView
                 //this is to avoid unneccessary updates which will happen because of binding
-                currentItem = grid.currentItem
+                initialize(grid.currentItem)
                 startMovement()
             }
         }
