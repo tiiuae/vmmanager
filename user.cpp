@@ -23,6 +23,6 @@ bool User::validate(const QString &_password)
 
 bool User::validate(const QString &_name, const QString &_password)
 {
-    //request to server
+    //request to the server/call vmd-cli-client?
     return false;
 }

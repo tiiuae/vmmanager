@@ -3,6 +3,8 @@
 #include <QJsonParseError>
 #include <QJsonArray>
 
+#define UPDATE_INTERVAL 5000
+
 /*
     The VM info will be provided by command line util vmd-cli.
 
@@ -14,6 +16,8 @@
 DataSource::DataSource(QObject *parent)
     : QObject{parent}
 {
+    QObject::connect(&updateModelTimer, &QTimer::timeout, this, &DataSource::updateModel);
+    updateModelTimer.start(UPDATE_INTERVAL);
 }
 
 //TODO: login mechanism
