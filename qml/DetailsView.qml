@@ -22,14 +22,14 @@ Item {
         internal.gridItemY = currentItem.y
         internal.vmName = currentItem.vmName
         internal.vmStatus = currentItem.vmStatus
+        internal.vmSafetyStatus = currentItem.vmSafetyStatus
     }
 
     function startMovement() {
-        console.log("vmTile x,y:" + vmTile.x + ", " + vmTile.y)
+        console.debug("Tile x,y:" + internal.gridItemX  + ", " + internal.gridItemY)
         infoArea.opacity = 0.0
         vmTile.x = internal.gridItemX >= Constants.baseMargin ? internal.gridItemX : Constants.baseMargin
         vmTile.y = internal.gridItemY >= Constants.baseMargin ? internal.gridItemY : Constants.baseMargin
-        //do not start animation if x,y === Constants.baseMargin ? it looks like a delay
         appearingAnimation.start()
     }
 
@@ -47,7 +47,7 @@ Item {
             target: vmTile
             properties: "x,y"
             to: Constants.baseMargin
-            duration: 400
+            duration: (vmTile.x === to) && (vmTile.y === to)? 100 : 400
         }
 
         PropertyAnimation {
