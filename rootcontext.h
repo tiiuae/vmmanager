@@ -39,7 +39,7 @@ public:
     Q_INVOKABLE void mainViewRequiested();
     Q_INVOKABLE void settingsRequiested();
     Q_INVOKABLE void loginRequest(const QString &passwd);
-    Q_INVOKABLE void pinRequest(const QString &number);
+    Q_INVOKABLE void pinRequest(const QString &number, bool keepLogged = true);
     Q_INVOKABLE void pinSubmit(const QString &code);
     Q_INVOKABLE void detailsRequested();
     Q_INVOKABLE void updateModel();

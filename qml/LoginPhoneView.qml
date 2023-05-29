@@ -82,8 +82,11 @@ Item {
         }
 
         SwitchButton {
+            id: keepLoggedSwitch
+
             text: "Keep me logged in"
             visible: !pinVisible
+            checked: true
         }
     }
 
@@ -115,7 +118,7 @@ Item {
                 rootContext.pinSubmit(pinInput.pin)
             }
             else {
-                rootContext.pinRequest(phoneInput.phoneNumber)
+                rootContext.pinRequest(phoneInput.phoneNumber, keepLoggedSwitch.checked)
             }
 //            pinVisible = !pinVisible//for test
         }

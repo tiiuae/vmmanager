@@ -42,7 +42,7 @@ void DataSource::updateModel()
     if(mVMDataModel.rowCount(QModelIndex()) > 0)
         mVMDataModel.clear();
 
-    //run vmd-client-cli --json
+    //run vmd-client --output --json
     QString vmInfo = execCommand("cat test.txt");
     vmInfo = vmInfo.trimmed();//simplified()?
 
@@ -57,7 +57,7 @@ void DataSource::updateModel()
 
 void DataSource::switchPower(bool on, QString name)
 {
-    QString command = QString("vmd-client-cli ") + (on? QString(" start ") : QString(" stop ")) + name;
+    QString command = QString("vmd-client ") + (on? QString(" start ") : QString(" stop ")) + name;
     qDebug() << execCommand(command.toLocal8Bit().data());
 }
 

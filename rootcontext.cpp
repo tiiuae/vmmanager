@@ -52,10 +52,14 @@ void RootContext::loginRequest(const QString &passwd)
     //else
 }
 
-void RootContext::pinRequest(const QString &number)
+void RootContext::pinRequest(const QString &number, bool keepLogged)
 {
+    if (keepLogged) {
+        User::instance()->setName(number);
+    }
+
     m_currentView = Views::LoginPinView;
-    dataSource.pinRequest(number);
+    dataSource.pinRequest(number);//TODO: where must be this method: data source or user class?
     emit currentViewChanged();
 //        emit pinResult(false);
 }
