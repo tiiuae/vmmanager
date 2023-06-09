@@ -31,3 +31,4 @@ HEADERS += \
     vmdatamodel.h
 
 DEFINES += DESKTOP#TABLET
+#DEFINES += TEST

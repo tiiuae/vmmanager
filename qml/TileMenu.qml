@@ -17,6 +17,7 @@ Rectangle {
     }
 
     visible: opacity != 0
+    opacity: 0.8
     color: Constants.backgroundColor2
 
     Row {
@@ -45,7 +46,7 @@ Rectangle {
 
     states: [
         State {
-            when: !hovered &&!internal.powerOn;
+            when: !hovered && !internal.powerOn;
             PropertyChanges {
                 target: root
                 opacity: 0.8
