@@ -27,7 +27,7 @@ private:
     QTimer updateModelTimer;
     VMDataModel mVMDataModel;
 
-    QString execCommand(const char * cmd);
+    QString execCommand(const QString &cmd);
 };
 
 #endif // DATASOURCE_H

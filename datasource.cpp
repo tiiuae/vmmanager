@@ -32,14 +32,15 @@
     <VM_name> <status>
 */
 
-#define RUN_CLI_LIST "cd ~/tii-projects/vmd && nix run .#packages.x86_64-linux.vmd-client -- \
+#define CD_VMD_DIR "cd ~/tii-projects/vmd" //temp solution
+
+#define RUN_CLI "nix run .#packages.x86_64-linux.vmd-client -- \
 --hostname localhost \
 --port 8080 \
 --cacert ./test/auth/certs/sample-ca-crt.pem \
 --cert ./test/auth/certs/sample-vmd-client-chain.pem \
 --key ./test/auth/certs/sample-vmd-client-key.pem \
 --output text \
-list \
 "
 
 DataSource::DataSource(QObject *parent)
@@ -73,11 +74,7 @@ void DataSource::updateModel()
 
 #ifdef TEST
     QString vmInfo = execCommand("cat test.txt");
-#else
-    QString vmInfo = execCommand(RUN_CLI_LIST);
-#endif
     vmInfo = vmInfo.trimmed();
-
     //parse the execution result and add to the model
     QTextStream stream (&vmInfo, QIODevice::ReadOnly);
     while(!stream.atEnd()) {
@@ -86,11 +83,26 @@ void DataSource::updateModel()
         mVMDataModel.addData(Parameter(temp1, temp2));
     }
 }
+#else
+    //! get the ID's list
+    QString IDs = execCommand(QString(CD_VMD_DIR) + " && " + QString(RUN_CLI) + QString(" list"));
+    IDs = IDs.trimmed();
+    //! then get the info for each VM
+    QStringList IDsList = IDs.split(QLatin1Char(','), Qt::SkipEmptyParts);
+    qDebug() << IDsList;
+
+    for (const QString &id: IDsList)
+    {
+        execCommand(QString(CD_VMD_DIR) + " && " + QString(RUN_CLI) + QString(" info ") + id);
+        mVMDataModel.addData(Parameter(id, ""));
+    }
+
+#endif
+}
 
 void DataSource::switchPower(bool on, QString name)
 {
-    QString command = QString("vmd-client action") + (on? QString(" start ") : QString(" stop ")) + name;//?
-    qDebug() << execCommand(command.toLocal8Bit().data());
+    qDebug() << execCommand(QString(CD_VMD_DIR) + " && " + QString(RUN_CLI) + QString(" action ") + (on? QString(" start ") : QString(" stop ")) + name);//?
 }
 
 void DataSource::saveSettings()
@@ -99,12 +111,11 @@ void DataSource::saveSettings()
 }
 
 
-QString DataSource::execCommand(const char *cmd)
+QString DataSource::execCommand(const QString &cmd)
 {
-    qDebug() << "enter execCommand()";
     std::array<char, 128> buffer;
     std::string result;
-    auto pipe = popen(cmd, "r");
+    auto pipe = popen(cmd.toLocal8Bit().data(), "r");
 
     if (!pipe) throw std::runtime_error("popen() failed!");
 
@@ -114,6 +125,7 @@ QString DataSource::execCommand(const char *cmd)
     }
 
     auto rc = pclose(pipe);
+
     qDebug() << QString::fromStdString(result) << ", code is " << rc;
 
     return QString::fromStdString(result);
