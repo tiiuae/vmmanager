@@ -32,7 +32,7 @@
     <VM_name> <status>
 */
 
-#define CD_VMD_DIR "cd ~/tii-projects/vmd" //temp solution
+#define VMD_DIR "~/tii-projects/vmd" //temp solution
 
 #define RUN_CLI "nix run .#packages.x86_64-linux.vmd-client -- \
 --hostname localhost \
@@ -69,9 +69,6 @@ void DataSource::pinSubmit(const QString &code)
 
 void DataSource::updateModel()
 {
-    if(mVMDataModel.rowCount(QModelIndex()) > 0)
-        mVMDataModel.clear();
-
 #ifdef TEST
     QString vmInfo = execCommand("cat test.txt");
     vmInfo = vmInfo.trimmed();
@@ -80,12 +77,15 @@ void DataSource::updateModel()
     while(!stream.atEnd()) {
         QString temp1, temp2;
         stream >> temp1 >> temp2;
-        mVMDataModel.addData(Parameter(temp1, temp2));
+        mVMDataModel.addData(Parameter(temp1, temp1, temp2));
     }
-}
 #else
     //! get the ID's list
-    QString IDs = execCommand(QString(CD_VMD_DIR) + " && " + QString(RUN_CLI) + QString(" list"));
+    if(vmdDir.isEmpty())
+    {
+        vmdDir = VMD_DIR;
+    }
+    QString IDs = execCommand("cd " + vmdDir + " && " + (RUN_CLI) + " list");
     IDs = IDs.trimmed();
     //! then get the info for each VM
     QStringList IDsList = IDs.split(QLatin1Char(','), Qt::SkipEmptyParts);
@@ -93,16 +93,21 @@ void DataSource::updateModel()
 
     for (const QString &id: IDsList)
     {
-        execCommand(QString(CD_VMD_DIR) + " && " + QString(RUN_CLI) + QString(" info ") + id);
-        mVMDataModel.addData(Parameter(id, ""));
+        execCommand("cd " + vmdDir + " && " + (RUN_CLI) + " info " + id);
+        mVMDataModel.addData(Parameter(id, "vm" + id, "running"));
     }
 
 #endif
 }
 
+void DataSource::setVmdDir(const QString &newVmdDir)
+{
+    vmdDir = newVmdDir;
+}
+
 void DataSource::switchPower(bool on, QString name)
 {
-    qDebug() << execCommand(QString(CD_VMD_DIR) + " && " + QString(RUN_CLI) + QString(" action ") + (on? QString(" start ") : QString(" stop ")) + name);//?
+    qDebug() << execCommand("cd " + vmdDir + " && " + (RUN_CLI) + " action " + (on? " start " : " stop ") + name);//?
 }
 
 void DataSource::saveSettings()

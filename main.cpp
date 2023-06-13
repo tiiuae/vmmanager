@@ -5,8 +5,39 @@
 
 //! add check for another app instance?
 
+const QString get_option(const QList<QString>& args, const QString& option_name)
+{
+    for (auto it = args.begin(), end = args.end(); it != end; ++it)
+    {
+        if (*it == option_name)
+        {
+            if (it + 1 != end)
+                return *(it + 1);
+        }
+    }
+
+    return "";
+}
+
+bool has_option(const QList<QString>& args, const QString& option_name)
+{
+    for (auto it = args.begin(), end = args.end(); it != end; ++it)
+    {
+        if (*it == option_name)
+            return true;
+    }
+
+    return false;
+}
+
 int main(int argc, char *argv[])
 {
+    //args handling
+    const QList<QString> args(argv, argv + argc);
+
+    QString vmd_dir = get_option(args, "--vmd-client-dir");
+    qDebug() << "arg: " << vmd_dir;
+
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
@@ -16,6 +47,7 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<EnumClass>("ViewEnums", 1, 0, "Views", "Not creatable as it is an enum type");
 
     RootContext context;
+    context.setVmdDir(vmd_dir);
     QQmlApplicationEngine engine;
 
 #ifdef TABLET

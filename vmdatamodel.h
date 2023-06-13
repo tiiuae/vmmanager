@@ -9,17 +9,21 @@
 class Parameter
 {
 public:
-    Parameter(const QString &name, const QString &value)
-        : m_name(name), m_status(value) {};
+    Parameter(const QString &id, const QString &name, const QString &value)
+        : m_id(id), m_name(name), m_status(value) {};
 
-    QString name() const {return m_name;};
-    QString status() const {return m_status;};
+    QString id() const { return m_id; }
+    QString name() const { return m_name; };
+    QString status() const { return m_status; };
 
-    void setName(const QString &newName) {m_name = newName;}
+    void setName(const QString &newName) { m_name = newName; }
 
-    void setStatus(const QString &newValue) { m_status = newValue;}//add validation!
+    void setStatus(const QString &newValue) { m_status = newValue; }//add validation!
+
+    friend bool operator==(const Parameter &lhs, const Parameter &rhs);
 
 private:
+    QString m_id;
     QString m_name;
     QString m_status;
 };

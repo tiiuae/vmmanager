@@ -49,6 +49,8 @@ public:
     Q_PROPERTY(int currentPage READ getCurrentPage NOTIFY currentViewChanged)
     int getCurrentPage() {return m_currentView;};
 
+    void setVmdDir(const QString& newDir);
+
 signals:
     void currentViewChanged();
     void pinResult(bool value);

@@ -17,7 +17,6 @@ Rectangle {
     }
 
     visible: opacity != 0
-    opacity: 0.8
     color: Constants.backgroundColor2
 
     Row {
@@ -46,37 +45,33 @@ Rectangle {
 
     states: [
         State {
-            when: !hovered && !internal.powerOn;
+            name: "off"
+            when: !internal.powerOn;
             PropertyChanges {
                 target: root
                 opacity: 0.8
             }
         },
         State {
-            when: hovered && !internal.powerOn;
-            PropertyChanges {
-                target: root
-                opacity: 0.8
-            }
-        },
-        State {
-            when: hovered && internal.powerOn;
-            PropertyChanges {
-                target: root
-                opacity: 0.8
-            }
-        },
-        State {
+            name: "on"
             when: !hovered && internal.powerOn;
             PropertyChanges {
                 target: root
                 opacity: 0.0
             }
+        },
+        State {
+            name: "on-focused"
+            when: hovered && internal.powerOn;
+            PropertyChanges {
+                target: root
+                opacity: 0.8
+            }
         }
     ]
 
-    transitions: Transition {
-            NumberAnimation { property: "opacity"; duration: 500}
+   Behavior on opacity {//transitions instead
+            NumberAnimation {duration: 500;}
         }
 
 }

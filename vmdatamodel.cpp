@@ -55,6 +55,11 @@ Qt::ItemFlags VMDataModel::flags(const QModelIndex &index) const
 
 void VMDataModel::addData(const Parameter &Parameter)
 {
+    if (parameters.contains(Parameter))//parameters.indexOf(Parameter);
+    {
+        //update other fields
+        return;
+    }
     beginInsertRows(QModelIndex(), parameters.count(), parameters.count());
     parameters << Parameter;
     endInsertRows();
@@ -65,4 +70,9 @@ void VMDataModel::clear()
     beginRemoveRows(QModelIndex(), 0, parameters.count());
     parameters.clear();
     endRemoveRows();
+}
+
+bool operator==(const Parameter &lhs, const Parameter &rhs)
+{
+    return lhs.id() == rhs.id();
 }

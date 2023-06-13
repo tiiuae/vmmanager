@@ -90,3 +90,8 @@ void RootContext::saveSettings()
     dataSource.saveSettings();
 }
 
+void RootContext::setVmdDir(const QString &newDir)
+{
+    dataSource.setVmdDir(newDir);
+}
+
