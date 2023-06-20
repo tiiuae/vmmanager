@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include "rootcontext.h"
+#include <iostream>
 
 //! add check for another app instance?
 
@@ -36,6 +37,10 @@ int main(int argc, char *argv[])
     const QList<QString> args(argv, argv + argc);
 
     QString vmd_dir = get_option(args, "--vmd-client-dir");
+    if (vmd_dir.isEmpty() && argc > 1) {
+        std::cout << "Wrong arguments!\nUsage: vmmanager --vmd-client-dir <DIRECTORY>\n<DIRECTORY> - directory where CLI client is located (temporary solution for Ubuntu)\n";
+        return 1;
+    }
     qDebug() << "arg: " << vmd_dir;
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -47,7 +52,7 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<EnumClass>("ViewEnums", 1, 0, "Views", "Not creatable as it is an enum type");
 
     RootContext context;
-    context.setVmdDir(vmd_dir);
+    context.setVmdDir(vmd_dir);//set dir to the CLI client and update the model
     QQmlApplicationEngine engine;
 
 #ifdef TABLET

@@ -70,7 +70,13 @@ Rectangle {
         }
     ]
 
-   Behavior on opacity {//transitions instead
+//    transitions: [
+//        Transition {
+//            NumberAnimation {property: "opacity"; duration: 500; onStarted: console.log("animation started!");}
+//        }
+//    ]
+
+   Behavior on opacity {//transitions are not debugged
             NumberAnimation {duration: 500;}
         }
 

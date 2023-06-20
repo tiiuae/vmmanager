@@ -10,7 +10,6 @@
 
 RootContext::RootContext()
 {
-    updateModel();
 }
 
 void RootContext::mainViewRequiested()

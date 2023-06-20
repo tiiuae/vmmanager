@@ -80,6 +80,7 @@ void DataSource::updateModel()
         mVMDataModel.addData(Parameter(temp1, temp1, temp2));
     }
 #else
+    qDebug() << "updateModel() " << vmdDir;
     //! get the ID's list
     if(vmdDir.isEmpty())
     {
@@ -102,7 +103,9 @@ void DataSource::updateModel()
 
 void DataSource::setVmdDir(const QString &newVmdDir)
 {
+    qDebug() << "setVmdDir() " << vmdDir;
     vmdDir = newVmdDir;
+    updateModel();
 }
 
 void DataSource::switchPower(bool on, QString name)
