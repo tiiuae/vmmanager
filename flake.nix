@@ -16,14 +16,13 @@
       aarch64-linux
     ];
   in
-    flake-utils.lib.eachSystem systems (system: {
-      packages = let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in {
-        vmmanager = pkgs.libsForQt5.callPackage ./vmmanager.nix {};
-      };
+    flake-utils.lib.eachSystem systems (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      packages.vmmanager = pkgs.libsForQt5.callPackage ./vmmanager.nix {};
+      packages.default = self.packages.${system}.vmmanager;
 
       # Allows formatting files with `nix fmt`
-      formatter = nixpkgs.legacyPackages.${system}.alejandra;
+      formatter = pkgs.alejandra;
     });
 }
