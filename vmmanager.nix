@@ -8,13 +8,13 @@
 stdenv.mkDerivation rec {
   name = "vmmanager";
 
-  nativeBuildInputs = [
+  depsBuildBuild = [
     qmake
     qtdeclarative
     wrapQtAppsHook
   ];
 
-  buildInputs = [
+  depsBuildHost = [
     qtbase
     qtdeclarative
   ];
