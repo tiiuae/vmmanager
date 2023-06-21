@@ -42,5 +42,8 @@
 
       # Allows formatting files with `nix fmt`
       formatter = pkgs.alejandra;
-    });
+    })
+    // {
+      nixosModules.vmmanager = import ./nixos-modules/vmmanager.nix;
+    };
 }
