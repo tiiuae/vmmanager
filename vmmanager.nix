@@ -1,17 +1,31 @@
 {
-  autoPatchelfHook,
-  qt5,
   stdenv,
+  qmake,
+  qtbase,
+  qtdeclarative,
+  wrapQtAppsHook,
 }:
 stdenv.mkDerivation rec {
   name = "vmmanager";
 
-  nativeBuildInputs = [autoPatchelfHook qt5.wrapQtAppsHook qt5.qtdeclarative];
+  nativeBuildInputs = [
+    qmake
+    qtdeclarative
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [qt5.qmake qt5.qtbase qt5.qtdeclarative];
+  buildInputs = [
+    qtbase
+    qtdeclarative
+  ];
 
   src = ./.;
 
-  buildPhase = "qmake; make";
-  installPhase = "mkdir -p $out/bin; mv -t $out/bin vmmanager";
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/bin; mv -t $out/bin vmmanager
+
+    runHook postInstall
+  '';
 }

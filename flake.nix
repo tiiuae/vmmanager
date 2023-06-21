@@ -20,7 +20,7 @@
       packages = let
         pkgs = nixpkgs.legacyPackages.${system};
       in {
-        vmmanager = pkgs.callPackage ./vmmanager.nix {};
+        vmmanager = pkgs.libsForQt5.callPackage ./vmmanager.nix {};
       };
 
       # Allows formatting files with `nix fmt`
