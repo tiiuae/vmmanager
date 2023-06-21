@@ -32,7 +32,7 @@
     <VM_name> <status>
 */
 
-#define RUN_CLI "nix run .#packages.x86_64-linux.vmd-client -- \
+#define RUN_CLI "./vmd-client \
 --hostname localhost \
 --port 8080 \
 --cacert ./test/auth/certs/sample-ca-crt.pem \
