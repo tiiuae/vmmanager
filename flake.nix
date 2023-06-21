@@ -22,6 +22,16 @@
       packages.vmmanager = pkgs.libsForQt5.callPackage ./vmmanager.nix {};
       packages.default = self.packages.${system}.vmmanager;
 
+      # Development shell with Qt Creator, enter with `nix develop`
+      devShell = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          libsForQt5.qmake
+          libsForQt5.qtbase
+          libsForQt5.qtdeclarative
+          qtcreator
+        ];
+      };
+
       # Allows formatting files with `nix fmt`
       formatter = pkgs.alejandra;
     });
