@@ -1,41 +1,38 @@
 {
   description = "A flake for building VMmanager";
 
-  inputs.nixpkgs.url = github:NixOS/nixpkgs/nixos-22.11;
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
 
-  outputs = { self
-  	    , nixpkgs
-  	    #, lib
-  	    #, stdenv
-  	    #, qt5
-  	    #, autoPatchelfHook
-  	    #, libX11
-  	    }
-      : {
-      defaultPackage.x86_64-linux =
-      # Notice the reference to nixpkgs here.
-      with import nixpkgs { system = "x86_64-linux"; };
-      
-      let
-        dynamic-linker = stdenv.cc.bintools.dynamicLinker;
+  outputs = {
+    self,
+    nixpkgs,
+    flake-utils,
+  }: let
+    systems = with flake-utils.lib.system; [
+      x86_64-linux
+      aarch64-linux
+    ];
+  in
+    flake-utils.lib.eachSystem systems (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      packages.vmmanager = pkgs.libsForQt5.callPackage ./vmmanager.nix {};
+      packages.default = self.packages.${system}.vmmanager;
 
-      libPath = lib.makeLibraryPath [
-        stdenv.cc.cc qt5.qmake  qt5.qtbase qt5.qtdeclarative libX11
-      ];
-
-      in stdenv.mkDerivation rec {
-
-        name = "vmmanager";
-        
-        nativeBuildInputs = [ autoPatchelfHook qt5.wrapQtAppsHook qt5.qtdeclarative ];
-
-        buildInputs = [ qt5.qmake qt5.qtbase qt5.qtdeclarative ];
-        
-        src = self;
-        
-        buildPhase = "qmake; make";
-        installPhase = "mkdir -p $out/bin; mv -t $out/bin vmmanager";
+      # Development shell with Qt Creator, enter with `nix develop`
+      devShell = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          libsForQt5.qmake
+          libsForQt5.qtbase
+          libsForQt5.qtdeclarative
+          qtcreator
+        ];
       };
 
-  };
+      # Allows formatting files with `nix fmt`
+      formatter = pkgs.alejandra;
+    });
 }
