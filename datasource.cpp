@@ -32,8 +32,6 @@
     <VM_name> <status>
 */
 
-#define VMD_DIR "~/tii-projects/vmd" //temp solution
-
 #define RUN_CLI "nix run .#packages.x86_64-linux.vmd-client -- \
 --hostname localhost \
 --port 8080 \
@@ -82,11 +80,7 @@ void DataSource::updateModel()
 #else
     qDebug() << "updateModel() " << vmdDir;
     //! get the ID's list
-    if(vmdDir.isEmpty())
-    {
-        vmdDir = VMD_DIR;
-    }
-    QString IDs = execCommand("cd " + vmdDir + " && " + (RUN_CLI) + " list");
+    QString IDs = runCLI("list");
     IDs = IDs.trimmed();
     //! then get the info for each VM
     QStringList IDsList = IDs.split(QLatin1Char(','), Qt::SkipEmptyParts);
@@ -94,8 +88,8 @@ void DataSource::updateModel()
 
     for (const QString &id: IDsList)
     {
-        execCommand("cd " + vmdDir + " && " + (RUN_CLI) + " info " + id);
-        mVMDataModel.addData(Parameter(id, "vm" + id, "running"));
+        runCLI("info " + id);
+        mVMDataModel.addData(Parameter(id, "vm" + id, "running"));//for testing purposes all of the VMs marked as running
     }
 
 #endif
@@ -110,7 +104,7 @@ void DataSource::setVmdDir(const QString &newVmdDir)
 
 void DataSource::switchPower(bool on, QString name)
 {
-    qDebug() << execCommand("cd " + vmdDir + " && " + (RUN_CLI) + " action " + (on? " start " : " stop ") + name);//?
+    qDebug() << runCLI(QString(" action ") + (on? " start " : " stop ") + name);//?
 }
 
 void DataSource::saveSettings()
@@ -118,6 +112,17 @@ void DataSource::saveSettings()
 
 }
 
+QString DataSource::runCLI(const QString &cmd)
+{
+    if (vmdDir.isEmpty())
+    {
+        return execCommand(QString(RUN_CLI) + " " + cmd);
+    }
+    else
+    {
+        return execCommand("cd " + vmdDir + " && " + (RUN_CLI) + " " + cmd);
+    }
+}
 
 QString DataSource::execCommand(const QString &cmd)
 {

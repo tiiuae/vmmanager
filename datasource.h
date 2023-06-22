@@ -30,6 +30,7 @@ private:
     VMDataModel mVMDataModel;
     QString vmdDir;
 
+    QString runCLI(const QString &cmd);
     QString execCommand(const QString &cmd);
 };
 
