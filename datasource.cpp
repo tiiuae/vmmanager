@@ -2,6 +2,8 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QJsonArray>
+#include <QProcess>
+#include <QDir>
 
 #define UPDATE_INTERVAL 5000
 
@@ -32,20 +34,15 @@
     <VM_name> <status>
 */
 
-#define RUN_CLI "nix run .#packages.x86_64-linux.vmd-client -- \
---hostname localhost \
---port 8080 \
---cacert ./test/auth/certs/sample-ca-crt.pem \
---cert ./test/auth/certs/sample-vmd-client-chain.pem \
---key ./test/auth/certs/sample-vmd-client-key.pem \
---output text \
-"
+#define RUN_CLI "./result/bin/vmd-client"
 
 DataSource::DataSource(QObject *parent)
     : QObject{parent}
 {
     QObject::connect(&updateModelTimer, &QTimer::timeout, this, &DataSource::updateModel);
     updateModelTimer.start(UPDATE_INTERVAL);
+
+    QObject::connect(this, &DataSource::listReady, this, &DataSource::fillInTheModelSlot);
 }
 
 //TODO: login mechanism
@@ -78,33 +75,38 @@ void DataSource::updateModel()
         mVMDataModel.addData(Parameter(temp1, temp1, temp2));
     }
 #else
-    qDebug() << "updateModel() " << vmdDir;
+    qDebug() << "updateModel()";
     //! get the ID's list
-    QString IDs = runCLI("list");
-    IDs = IDs.trimmed();
-    //! then get the info for each VM
-    QStringList IDsList = IDs.split(QLatin1Char(','), Qt::SkipEmptyParts);
-    qDebug() << IDsList;
-
-    for (const QString &id: IDsList)
-    {
-        runCLI("info " + id);
-        mVMDataModel.addData(Parameter(id, "vm" + id, "running"));//for testing purposes all of the VMs marked as running
-    }
+    runCLI(Commands::List);
 
 #endif
 }
 
+void DataSource::fillInTheModelSlot(QStringList list)
+{
+    for (const QString &id: list)
+    {
+        //runCLI(Commands::Info, id);
+        mVMDataModel.addData(Parameter(id, "vm" + id, "running"));//for testing purposes all of the VMs marked as running
+    }
+}
+
+void DataSource::fillInTheModelItemInfoSlot(QByteArray info)
+{
+    //parse & add
+    //mVMDataModel.addData(Parameter(arg, "vm" + arg, "running"));//for testing purposes all of the VMs marked as running
+}
+
 void DataSource::setVmdDir(const QString &newVmdDir)
 {
-    qDebug() << "setVmdDir() " << vmdDir;
+    qDebug() << "setVmdDir() " << newVmdDir;
     vmdDir = newVmdDir;
     updateModel();
 }
 
 void DataSource::switchPower(bool on, QString name)
 {
-    qDebug() << runCLI(QString(" action ") + (on? " start " : " stop ") + name);//?
+    runCLI(Commands::Action, QStringList() << name << (on? "start" : "stop"));
 }
 
 void DataSource::saveSettings()
@@ -112,35 +114,67 @@ void DataSource::saveSettings()
 
 }
 
-QString DataSource::runCLI(const QString &cmd)
+void DataSource::runCLI(Commands cmd, QStringList args)
 {
-    if (vmdDir.isEmpty())
+    QProcess * process = new QProcess(this);
+    process->setReadChannel(QProcess::StandardOutput);
+    process->setProcessChannelMode(QProcess::MergedChannels);
+
+    QObject::connect(process, &QProcess::stateChanged, [process] {qDebug() << process->processId() << process->processEnvironment().toStringList() << process->state() << process->errorString();});
+
+    if (!vmdDir.isEmpty())
+        process->setWorkingDirectory(vmdDir);
+
+    //or set the directory for the whole app
+//    QDir::setCurrent(vmdDir);
+
+    qDebug() << "runCLI in " << process->workingDirectory();
+
+    QStringList allArgs;
+    allArgs << "--hostname" << "localhost" << "--port" << "8080" << "--cacert" << "test/auth/certs/sample-ca-crt.pem" << "--cert"
+         << "test/auth/certs/sample-vmd-server-crt.pem" << "--key" << "test/auth/certs/sample-vmd-server-key.pem" << "--verbose" << "--output" << "text";
+
+    switch(cmd)
     {
-        return execCommand(QString(RUN_CLI) + " " + cmd);
-    }
-    else
+    case Commands::List:
     {
-        return execCommand("cd " + vmdDir + " && " + (RUN_CLI) + " " + cmd);
+        qDebug() << "List cmd";
+
+        allArgs << "list";
+
+        QObject::connect(process, &QProcess::readyRead, [process, this] () {
+            QByteArray a = process->readAllStandardOutput();
+            QStringList list = QString(a).split(QLatin1Char(','), Qt::SkipEmptyParts);
+            qDebug() << "list ready" << a;
+            emit listReady(list);
+        });
     }
-}
+        break;
+    case Commands::Info:
+    {
+        allArgs << "info" << args;
 
-QString DataSource::execCommand(const QString &cmd)
-{
-    std::array<char, 128> buffer;
-    std::string result;
-    auto pipe = popen(cmd.toLocal8Bit().data(), "r");
+        QObject::connect(process, &QProcess::readyRead, [process, this] () {
+            QByteArray a = process->readAllStandardOutput();
+            emit infoReady(a);
+        });
 
-    if (!pipe) throw std::runtime_error("popen() failed!");
-
-    while (!feof(pipe)) {
-        if (fgets(buffer.data(), 128, pipe) != nullptr)
-            result += buffer.data();
+    }
+        break;
+    case Commands::Action:
+    {
+        allArgs << "action" << args;
+    }
+        break;
     }
 
-    auto rc = pclose(pipe);
+    QObject::connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
+                     [=](int exitCode, QProcess::ExitStatus /*exitStatus*/){
+        qDebug()<< "process exited with code " << exitCode;
+        process->deleteLater();
+    });
 
-    qDebug() << QString::fromStdString(result) << ", code is " << rc;
-
-    return QString::fromStdString(result);
+    process->start(QString(RUN_CLI), allArgs, QIODevice::ReadOnly);
+    qDebug() << "ARGS: " << process->arguments() << process->workingDirectory() << process->program();
 }
 

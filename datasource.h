@@ -6,6 +6,13 @@
 #include "vmdatamodel.h"
 #include "user.h"
 
+enum class Commands
+{
+    List = 0,
+    Info,
+    Action
+};
+
 class DataSource : public QObject
 {
     Q_OBJECT
@@ -24,14 +31,19 @@ public:
 
 public slots:
     Q_INVOKABLE void updateModel();
+    void fillInTheModelSlot(QStringList list);
+    void fillInTheModelItemInfoSlot(QByteArray info);
+
+signals:
+    void listReady(QStringList list);
+    void infoReady(QByteArray info);
 
 private:
     QTimer updateModelTimer;
     VMDataModel mVMDataModel;
     QString vmdDir;
 
-    QString runCLI(const QString &cmd);
-    QString execCommand(const QString &cmd);
+    void runCLI(Commands cmd, QStringList args = QStringList());
 };
 
 #endif // DATASOURCE_H
