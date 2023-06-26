@@ -68,9 +68,11 @@ Rectangle {
 
         text: vmName
         anchors.left: appArea.right
+        anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
-        horizontalAlignment: Text.AlignHCenter
+        horizontalAlignment: Text.AlignLeft
         anchors.margins: 5
+        clip: true
         height: 25
         font.pixelSize: 18
         font.bold: true
@@ -82,9 +84,11 @@ Rectangle {
 
         text: vmStatus
         anchors.left: appArea.right
+        anchors.right: parent.right
         anchors.top: nameLabel.bottom
-        horizontalAlignment: Text.AlignHCenter
+        horizontalAlignment: Text.AlignLeft
         anchors.margins: 5
+        clip: true
         height: 25
         font.pixelSize: 18
         color: Constants.textColor1
