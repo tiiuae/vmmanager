@@ -132,7 +132,7 @@ void DataSource::runCLI(Commands cmd, QStringList args)
 
     QStringList allArgs;
     allArgs << "--hostname" << "localhost" << "--port" << "8080" << "--cacert" << "test/auth/certs/sample-ca-crt.pem" << "--cert"
-         << "test/auth/certs/sample-vmd-server-crt.pem" << "--key" << "test/auth/certs/sample-vmd-server-key.pem" << "--verbose" << "--output" << "text";
+         << "test/auth/certs/sample-vmd-client-chain.pem" << "--key" << "test/auth/certs/sample-vmd-client-key.pem" << "--verbose" << "--output" << "text";
 
     switch(cmd)
     {
