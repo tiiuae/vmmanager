@@ -17,6 +17,7 @@ stdenv.mkDerivation rec {
   depsBuildHost = [
     qtbase
     qtdeclarative
+    #qtwayland #generates error
   ];
 
   src = ./.;

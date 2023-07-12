@@ -28,6 +28,7 @@
           libsForQt5.qmake
           libsForQt5.qtbase
           libsForQt5.qtdeclarative
+	  libsForQt5.qtwayland
           qtcreator
         ];
       };
