@@ -29,8 +29,8 @@
       -h, --help                 Print help
       -V, --version              Print version
 
-    For testing purposes the test.txt file is used. This file must be in the same directory as executable file.
-    The template is shown below:
+    For testing purposes the test.txt file is used (#DEFINES += TEST in .pro file must uncommented).
+    This file must be in the same directory as executable file. The template is shown below:
     <VM_name> <status>
 */
 

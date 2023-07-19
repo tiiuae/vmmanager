@@ -4,6 +4,12 @@
 #include "rootcontext.h"
 #include <iostream>
 
+/*
+ * The app usage:
+ * vmmanager [--vmd-client-dir <directory>]
+ * The application vmmanager can be run with or without vmd-client-dir argument. If no argument specified the vmd-client dir is set to current dir.
+*/
+
 //! add check for another app instance?
 
 const QString get_option(const QList<QString>& args, const QString& option_name)
@@ -38,7 +44,7 @@ int main(int argc, char *argv[])
 
     QString vmd_dir = get_option(args, "--vmd-client-dir");
     if (vmd_dir.isEmpty() && argc > 1) {
-        std::cout << "Wrong arguments!\nUsage: vmmanager --vmd-client-dir <DIRECTORY>\n<DIRECTORY> - directory where CLI client is located (temporary solution for Ubuntu)\n";
+        std::cout << "Wrong arguments!\nUsage: vmmanager [--vmd-client-dir] <DIRECTORY>\n<DIRECTORY> - directory where CLI client is located (temporary solution for Ubuntu)\n";
         return 1;
     }
     qDebug() << "arg: " << vmd_dir;
