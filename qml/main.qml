@@ -68,7 +68,7 @@ ApplicationWindow {
 
         Label {
             id: vmLabel
-            text: "Virtual Machines"
+            text: qsTr("Virtual Machines")
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.margins: Constants.baseMargin
@@ -140,18 +140,18 @@ ApplicationWindow {
         width: 200
 
         Action {
-            text: "Settings"
+            text: qsTr("Settings")
             onTriggered: rootContext.settingsRequiested()
         }
 
         Action {
-            text: "Update view"
+            text: qsTr("Update view")
             shortcut: "Ctrl+R"
             onTriggered: rootContext.updateModel()
         }
 
         Action {
-            text: "Show dialog (test)"
+            text: qsTr("Show dialog (test)")
             onTriggered: popup.open()
         }
     }
@@ -234,7 +234,7 @@ ApplicationWindow {
     //dialog popup
     DialogPopup {
         id: popup
-        text: "Test dialog popup"
+        text: qsTr("Test dialog popup")
         anchors.centerIn: parent
         //make it versatile!
     }

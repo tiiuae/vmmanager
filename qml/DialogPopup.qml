@@ -71,7 +71,7 @@ Popup {
                 contentItem: ButtonContentItem {
                     anchors.fill: parent
                     control: parent
-                    text: "Cancel"
+                    text: qsTr("Cancel")
                 }
 
                 background: ButtonBackground {

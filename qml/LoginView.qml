@@ -50,7 +50,7 @@ Item {
         anchors.bottom: passwordInput.top
         anchors.horizontalCenter: parent.horizontalCenter
 
-        text: "Enter your password below"
+        text: qsTr("Enter your password below")
     }
 
     TextField {
@@ -88,7 +88,7 @@ Item {
 
         contentItem: Label  {
             anchors.centerIn: parent
-            text: "CONTINUE"
+            text: qsTr("CONTINUE")
             font.bold: true
             horizontalAlignment: Qt.AlignHCenter
             color: loginButton.pressed ? Constants.textColor1 : Constants.textColor0

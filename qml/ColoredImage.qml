@@ -6,7 +6,7 @@ Image {
 
     property alias color: overlay.color
 
-    ColorOverlay {
+    ColorOverlay {//beware the borders!
         id: overlay
 
         anchors.fill: parent

@@ -63,7 +63,7 @@ Item {
         Label {
             id: infoSectionlabel
 
-            text: "Information"
+            text: qsTr("Information")
             font {
                 bold: true
                 //            pixelSize: Constants.mainFontSize
@@ -76,15 +76,15 @@ Item {
             spacing: 50
 
             InfoTileItem {
-                text: "Memory used: 150MB"
+                text: qsTr("Memory used: 150MB")
                 value: 0.3
             }
             InfoTileItem {
-                text: "CPU usage: 10%"
+                text: qsTr("CPU usage: 10%")
                 value: 0.1
             }
             InfoTileItem {
-                text: "Network load: 40%"
+                text: qsTr("Network load: 40%")
                 value: 0.4
             }
         }
@@ -113,23 +113,23 @@ Item {
                 }
 
                 TabButtonM {
-                    text: "Software update"
+                    text: qsTr("Software update")
                     bottomLineVisible: bar.currentIndex == TabBar.index
                 }
                 TabButtonM {
-                    text: "Backup"
+                    text: qsTr("Backup")
                     bottomLineVisible: bar.currentIndex == TabBar.index
                 }
                 TabButtonM {
-                    text: "Reset"
+                    text: qsTr("Reset")
                     bottomLineVisible: bar.currentIndex == TabBar.index
                 }
                 TabButtonM {
-                    text: "Provisioning"
+                    text: qsTr("Provisioning")
                     bottomLineVisible: bar.currentIndex == TabBar.index
                 }
                 TabButtonM {
-                    text: "System status"
+                    text: qsTr("System status")
                     bottomLineVisible: bar.currentIndex == TabBar.index
                 }
             }
@@ -154,7 +154,7 @@ Item {
                         Button {
                             width: 100
                             height: 35
-                            text: "Update"
+                            text: qsTr("Update")
                             icon.source: "/pic/update"
 
                             background: ToolButtonBackground {
@@ -165,7 +165,7 @@ Item {
                         Button {
                             width: 150
                             height: 35
-                            text: "Version: 0.9"
+                            text: qsTr("Version: 0.9")
                             icon.source: "/pic/settings"
 
                             background: ToolButtonBackground {

@@ -38,7 +38,7 @@ Item {
         anchors.top: ghafTextLabel.bottom
         anchors.horizontalCenter: parent.horizontalCenter
 
-        text: "Login or create account"
+        text: qsTr("Login or create account")
     }
 
     ColumnLayout {
@@ -52,7 +52,7 @@ Item {
         Label {
             id: tipLabel2
 
-            text: "Enter your number below"
+            text: qsTr("Enter your number below")
         }
 
         PhoneInput {
@@ -78,13 +78,13 @@ Item {
         Label {
             id: tipLabel3
 
-            text: "You'll recieve SMS with one-time PIN"
+            text: qsTr("You'll recieve SMS with one-time PIN")
         }
 
         SwitchButton {
             id: keepLoggedSwitch
 
-            text: "Keep me logged in"
+            text: qsTr("Keep me logged in")
             visible: !pinVisible
             checked: true
         }
@@ -102,7 +102,7 @@ Item {
 
         contentItem: Label  {
             anchors.centerIn: parent
-            text: "CONTINUE"
+            text: qsTr("CONTINUE")
             font.bold: true
             horizontalAlignment: Qt.AlignHCenter
             color: loginButton.pressed ? Constants.textColor1 : Constants.textColor0

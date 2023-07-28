@@ -97,7 +97,7 @@ Item {
         Label {
             id: infoSectionlabel
 
-            text: "Information"
+            text: qsTr("Information")
             font {
                 bold: true
                 //            pixelSize: Constants.mainFontSize
@@ -110,15 +110,15 @@ Item {
             spacing: 50
 
             InfoTileItem {
-                text: "Memory used: 150MB"
+                text: qsTr("Memory used: 150MB")
                 value: 0.3
             }
             InfoTileItem {
-                text: "CPU usage: 10%"
+                text: qsTr("CPU usage: 10%")
                 value: 0.1
             }
             InfoTileItem {
-                text: "Network load: 40%"
+                text: qsTr("Network load: 40%")
                 value: 0.4
             }
         }
@@ -136,11 +136,11 @@ Item {
             Label {
                 text: {
                     if (internal.vmSafetyStatus === 0)
-                        return "No security threat!"
+                        return qsTr("No security threat!")
                     if (internal.vmSafetyStatus === 1)
-                        return "Medium risk"
+                        return qsTr("Medium risk")
                     if (internal.vmSafetyStatus === 2)
-                        return "High risk!"
+                        return qsTr("High risk!")
                 }
             }
         }
@@ -158,7 +158,7 @@ Item {
                 contentItem: ToolButtonContentItem {
                     anchors.fill: parent
                     control: parent
-                    text: "Shutdown"
+                    text: qsTr("Shutdown")
                     baseColor: Constants.backgroundColor2
                     pressColor: Constants.textColor0
                 }
@@ -179,7 +179,7 @@ Item {
                 contentItem: ToolButtonContentItem {
                     anchors.fill: parent
                     control: parent
-                    text: "Pause"
+                    text: qsTr("Pause")
                     baseColor: Constants.backgroundColor2
                     pressColor: Constants.textColor0
                 }
