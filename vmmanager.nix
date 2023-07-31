@@ -4,6 +4,7 @@
   qtbase,
   qtdeclarative,
   wrapQtAppsHook,
+  qtwayland
 }:
 stdenv.mkDerivation rec {
   name = "vmmanager";
@@ -17,7 +18,7 @@ stdenv.mkDerivation rec {
   depsBuildHost = [
     qtbase
     qtdeclarative
-    #qtwayland #generates error
+    qtwayland
   ];
 
   src = ./.;
