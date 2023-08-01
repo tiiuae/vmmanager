@@ -1,6 +1,6 @@
 import QtQuick 2.15
 
-Image {
+ColoredImage {
     id: root
 
     property int status: 0

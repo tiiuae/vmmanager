@@ -178,3 +178,24 @@ void DataSource::runCLI(Commands cmd, QStringList args)
     qDebug() << "ARGS: " << process->arguments() << process->workingDirectory() << process->program();
 }
 
+#ifdef TEST
+QString DataSource::execCommand(const QString &cmd)
+{
+    std::array<char, 128> buffer;
+    std::string result;
+    auto pipe = popen(cmd.toLocal8Bit().data(), "r");
+
+    if (!pipe) throw std::runtime_error("popen() failed!");
+
+    while (!feof(pipe)) {
+        if (fgets(buffer.data(), 128, pipe) != nullptr)
+            result += buffer.data();
+    }
+
+    auto rc = pclose(pipe);
+
+    qDebug() << QString::fromStdString(result) << ", code is " << rc;
+
+    return QString::fromStdString(result);
+}
+#endif

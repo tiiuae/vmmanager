@@ -44,6 +44,10 @@ private:
     QString vmdDir;
 
     void runCLI(Commands cmd, QStringList args = QStringList());
+
+#ifdef TEST
+    QString execCommand(const QString &cmd);
+#endif
 };
 
 #endif // DATASOURCE_H

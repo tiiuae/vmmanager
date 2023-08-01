@@ -14,6 +14,16 @@ ApplicationWindow {
     visible: true
     flags: Qt.FramelessWindowHint | Qt.Window
 
+    function showWidget() {
+        widget.show()
+        root.showMinimized()
+    }
+
+    function hideWidget() {
+        widget.hide()
+        root.showNormal()
+    }
+
     //! Changing size of frameless window
     //! TO FIX: MouseArea covers ToolBar
     MouseArea {
@@ -35,10 +45,10 @@ ApplicationWindow {
 
         cursorShape: {
             return !containsMouse ? Qt.ArrowCursor:
-                                    edges == 3 || edges == 12 ? Qt.SizeFDiagCursor :
-                                                                edges == 5 || edges == 10 ? Qt.SizeBDiagCursor :
-                                                                                            edges & 9 ? Qt.SizeVerCursor :
-                                                                                                        edges & 6 ? Qt.SizeHorCursor : Qt.ArrowCursor;
+                                    (edges == 3 || edges == 12) ? Qt.SizeFDiagCursor :
+                                                                  (edges == 5 || edges == 10) ? Qt.SizeBDiagCursor :
+                                                                                                (edges & 9) ? Qt.SizeVerCursor :
+                                                                                                              (edges & 6) ? Qt.SizeHorCursor : Qt.ArrowCursor;
         }
 
         onPositionChanged: setEdges(mouseX, mouseY);
@@ -123,7 +133,11 @@ ApplicationWindow {
                 control: parent
             }
 
-            onClicked: Qt.quit()
+            onClicked: {
+                console.log("Quit clicked")
+                showWidget()
+                //                Qt.quit()//make a setting to define a behavior
+            }
         }
 
         background: Rectangle {
@@ -161,81 +175,101 @@ ApplicationWindow {
         color: Constants.backgroundColor0
     }
 
-    //main view
-    GridView {
-        id: grid
+    ///////////////////////////////////////////////////////////////////////////////////////
+    AppWidget {
+        id: widget
 
-        visible: rootContext.currentPage === Views.MainVMView
+        visible: false
+
+        onClicked: {
+            console.log("Widget clicked")
+            hideWidget()
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+    Item {
+        id: mainContent
 
         anchors.fill: parent
-        anchors.margins: Constants.baseMargin
+        anchors.margins: 0
 
-        cellHeight: 130
-        cellWidth: 280
+        //main view
+        GridView {
+            id: grid
 
-        model: DelegateModel {
-            model: VMDataModel
-            delegate: TileItemDelegate {
-                vmName: name
-                vmStatus: status
+            visible: rootContext.currentPage === Views.MainVMView
 
-                onIsCurrentChanged: {
-                    grid.currentIndex = model.index//grid.model.index
-                    console.log("item " + grid.currentIndex)
+            anchors.fill: parent
+            anchors.margins: Constants.baseMargin
+
+            cellHeight: 130
+            cellWidth: 280
+
+            model: DelegateModel {
+                model: VMDataModel
+                delegate: TileItemDelegate {
+                    vmName: name
+                    vmStatus: status
+
+                    onIsCurrentChanged: {
+                        grid.currentIndex = model.index//grid.model.index
+                        console.log("item " + grid.currentIndex)
+                    }
                 }
             }
         }
-    }
 
-    //VM details view
-    DetailsView {
-        anchors.fill: parent
-        visible: rootContext.currentPage === Views.DetailsView
+        //VM details view
+        DetailsView {
+            anchors.fill: parent
+            visible: rootContext.currentPage === Views.DetailsView
 
-        onVisibleChanged: {
-            if (visible) {
-                //then update properties by initializing the internal fields of DetailsView
-                //this is to avoid unneccessary updates which will happen because of binding
-                initialize(grid.currentItem)
-                startMovement()
+            onVisibleChanged: {
+                if (visible) {
+                    //then update properties by initializing the internal fields of DetailsView
+                    //this is to avoid unneccessary updates which will happen because of binding
+                    initialize(grid.currentItem)
+                    startMovement()
+                }
             }
         }
-    }
 
-    //login views
-    LoginView {
-        anchors.fill: parent
-        visible: rootContext.currentPage === Views.LoginView
-    }
+        //login views
+        LoginView {
+            anchors.fill: parent
+            visible: rootContext.currentPage === Views.LoginView
+        }
 
-    LoginPhoneView {
-        anchors.fill: parent
+        LoginPhoneView {
+            anchors.fill: parent
 
-        visible: rootContext.currentPage === Views.LoginPhoneView
-                 || rootContext.currentPage === Views.LoginPinView
+            visible: rootContext.currentPage === Views.LoginPhoneView
+                     || rootContext.currentPage === Views.LoginPinView
 
-        pinVisible: rootContext.currentPage === Views.LoginPinView
-    }
+            pinVisible: rootContext.currentPage === Views.LoginPinView
+        }
 
-    //general settings view
-    GeneralSettingsView {
-        anchors.fill: parent
-        visible: rootContext.currentPage === Views.GeneralSettings
-    }
+        //general settings view
+        GeneralSettingsView {
+            anchors.fill: parent
+            visible: rootContext.currentPage === Views.GeneralSettings
+        }
 
-    //for popup background
-    ScreenBlur {
-        id: popupBackground
+        //for popup background
+        ScreenBlur {
+            id: popupBackground
 
-        anchors.fill: parent
-        isBlur: popup.opened
-    }
+            anchors.fill: parent
+            isBlur: popup.opened
+        }
 
-    //dialog popup
-    DialogPopup {
-        id: popup
-        text: qsTr("Test dialog popup")
-        anchors.centerIn: parent
-        //make it versatile!
+        //dialog popup
+        DialogPopup {
+            id: popup
+            text: qsTr("Test dialog popup")
+            anchors.centerIn: parent
+            //make it versatile!
+        }
     }
 }

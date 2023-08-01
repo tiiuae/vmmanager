@@ -33,6 +33,10 @@ QtObject {
     readonly property color backgroundColor2: "#2E3B4C"
     readonly property color iconBackground: "#597393"
     readonly property color backgroundColor3:"#DDEAF3"
+    readonly property color widgetBackgroundColor: "#58656F"
+    readonly property color widgetContentColor: "#D4D7DA"
+    readonly property int widgetWidth: 300
+    readonly property int widgetHeight: 80
 
     readonly property color shadowColor: Qt.rgba(0, 0, 0, 0.04)
 
@@ -42,4 +46,8 @@ QtObject {
 
     readonly property color textColor0: "#ffffff"
     readonly property color textColor1: "#000000"
+
+    function alphaColor(colorValue, alphaValue) {
+        return Qt.rgba(colorValue.r, colorValue.g, colorValue.b, alphaValue)
+    }
 }

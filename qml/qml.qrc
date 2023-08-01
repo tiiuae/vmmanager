@@ -29,5 +29,6 @@
         <file>PinInput.qml</file>
         <file>PinInputField.qml</file>
         <file>TabButtonM.qml</file>
+        <file>AppWidget.qml</file>
     </qresource>
 </RCC>
