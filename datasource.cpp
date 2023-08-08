@@ -114,6 +114,7 @@ void DataSource::saveSettings()
 
 }
 
+//put it into separate class as statuc method VMDCLI::run(Commands cmd, QStringList args) ?
 void DataSource::runCLI(Commands cmd, QStringList args)
 {
     QProcess * process = new QProcess(this);

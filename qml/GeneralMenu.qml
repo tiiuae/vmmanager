@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtGraphicalEffects 1.15
 
 Menu {
     id: root
@@ -13,9 +14,20 @@ Menu {
     //right and left ones aren't defined
 
     background: Rectangle {
-        implicitWidth: 200
-        implicitHeight: root.count + 2*Constants.baseMargin
+        implicitWidth: root.width - 2*Constants.baseMargin
+        implicitHeight: root.count*menuItem.implicitHeight + 2*Constants.baseMargin
         color: Constants.backgroundColor1
+
+        DropShadow {
+            id: shadowEffect
+            anchors.fill: parent
+            source: parent
+            horizontalOffset: 5
+            verticalOffset: 5
+            radius: 10
+            samples: 25
+            color: "gray"
+        }
 
         Canvas {
             id: pointerItem

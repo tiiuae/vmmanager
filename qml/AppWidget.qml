@@ -72,10 +72,6 @@ Window {
                 id: delegateItem
 
                 color: "transparent"
-//                border {
-//                    color: "red"
-//                    width: 1
-//                }
 
                 width: grid.cellWidth
                 height: grid.cellHeight
@@ -99,7 +95,6 @@ Window {
                         anchors.right: parent.right
                         anchors.margins: 10
                         status: status
-                        //width: 20
                         color: Constants.widgetContentColor
                     }
 

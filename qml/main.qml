@@ -151,7 +151,7 @@ ApplicationWindow {
 
         x: menuButton.x + menuButton.width/2 - getPointerX()
         y: toolBar.y + toolBar.height
-        width: 200
+        width: 220
 
         Action {
             text: qsTr("Settings")
