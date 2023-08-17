@@ -37,7 +37,8 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "vmd": "vmd"
       }
     },
     "systems": {
@@ -52,6 +53,29 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "vmd": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1686231454,
+        "narHash": "sha256-1l6LYvdzkWDx85zv63agVd+ToBvi9568Kzp3p8O9/g4=",
+        "owner": "tiiuae",
+        "repo": "vmd",
+        "rev": "9e5e1713d9116c8dbaf84ab97d1efd9ce31bc967",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tiiuae",
+        "repo": "vmd",
         "type": "github"
       }
     }

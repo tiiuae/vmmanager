@@ -34,7 +34,18 @@
     <VM_name> <status>
 */
 
+
 #define RUN_CLI "./result/bin/vmd-client"
+/*/
+#define RUN_CLI "./vmd-client \
+--hostname localhost \
+--port 8080 \
+--cacert ./test/auth/certs/sample-ca-crt.pem \
+--cert ./test/auth/certs/sample-vmd-client-chain.pem \
+--key ./test/auth/certs/sample-vmd-client-key.pem \
+--output text \
+"
+//*/
 
 DataSource::DataSource(QObject *parent)
     : QObject{parent}
