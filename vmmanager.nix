@@ -4,6 +4,8 @@
   qmake,
   qtbase,
   qtdeclarative,
+  qtquickcontrols2,
+  qtgraphicaleffects,
   vmd-client,
   wrapQtAppsHook,
   qtwayland
@@ -15,12 +17,16 @@ stdenv.mkDerivation rec {
     makeWrapper
     qmake
     qtdeclarative
+    qtquickcontrols2
+    qtgraphicaleffects
     wrapQtAppsHook
   ];
 
   depsBuildHost = [
     qtbase
     qtdeclarative
+    qtquickcontrols2
+    qtgraphicaleffects
     qtwayland
     vmd-client
   ];
